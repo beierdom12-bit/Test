@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pokémon Collector - Sammlungs Tracker</title>
+    <style>
+        :root {
+            --bg-color: #090d16;
+            --surface-color: rgba(21, 29, 46, 0.7);
+            --surface-card: #151d2e;
+            --primary-color: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --warning-color: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #090d16 70%);
+            color: var(--text-main); 
+            padding: 16px 12px 32px 12px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-container { 
+            width: 100%; 
+            max-width: 900px;
+            background: var(--surface-color); 
+            backdrop-filter: blur(12px);
+            border-radius: 16px; 
+            padding: 18px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); 
+            border: 1px solid var(--border-color); 
+        }
+
+        .header-title { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            margin-bottom: 16px; 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 12px; 
+        }
+        .header-title h1 { 
+            font-size: 1.25rem; 
+            color: var(--text-main); 
+            flex-grow: 1; 
+            font-weight: 800; 
+            letter-spacing: -0.3px; 
+        }
+        .status-badge { 
+            font-size: 0.72rem; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            background: rgba(255,255,255,0.05); 
+            font-weight: 600; 
+            color: var(--text-muted); 
+            border: 1px solid var(--border-color); 
+        }
+
+        /* SEARCH BAR */
+        .search-box-wrapper { margin-bottom: 14px; position: relative; }
+        .search-input { 
+            width: 100%; 
+            padding: 12px 16px 12px 40px; 
+            background: var(--surface-card); 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            color: var(--text-main); 
+            font-size: 0.9rem; 
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--primary-color); }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; font-size: 0.9rem; }
+
+        .btn { 
+            padding: 10px 16px; 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: 700; 
+            font-size: 0.82rem; 
+            cursor: pointer; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-outline { background: var(--surface-card); border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-refresh { background: rgba(59, 130, 246, 0.15); border: 1px solid var(--primary-color); color: #93c5fd; }
+        .btn-primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; }
+
+        /* REITER / AKKORDEON STYLES */
+        .series-accordion-container { display: flex; flex-direction: column; gap: 12px; }
+        .year-card { background: var(--surface-card); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; transition: border-color 0.2s; }
+        .year-card.open { border-color: rgba(59, 130, 246, 0.5); }
+        .year-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; cursor: pointer; user-select: none; background: rgba(255, 255, 255, 0.03); }
+        .year-title { font-weight: 800; font-size: 1.05rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .year-arrow { font-size: 0.8rem; color: var(--text-muted); transition: transform 0.2s ease; }
+        .year-card.open .year-arrow { transform: rotate(180deg); }
+        
+        .year-sets-list { display: none; padding: 6px 12px 14px 12px; border-top: 1px solid var(--border-color); flex-direction: column; gap: 10px; background: rgba(0,0,0,0.2); }
+        .year-card.open .year-sets-list { display: flex; }
+
+        .set-item-row { display: flex; flex-direction: column; gap: 6px; padding: 10px 8px; border-radius: 10px; cursor: pointer; transition: background 0.15s; }
+        .set-item-row:hover { background: rgba(255, 255, 255, 0.05); }
+        .set-item-top { display: flex; justify-content: space-between; align-items: center; }
+        .set-item-left { display: flex; align-items: center; gap: 12px; overflow: hidden; }
+        
+        .set-badge-icon { 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 8px; 
+            background: #ffffff; 
+            border: 1px solid var(--border-color); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.65rem; 
+            font-weight: 900; 
+            color: #0f172a; 
+            flex-shrink: 0; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            overflow: hidden;
+            padding: 4px;
+        }
+
+        .set-badge-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 1px rgba(0,0,0,0.8)); }
+        .set-item-name { font-size: 0.88rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .set-item-stats { font-size: 0.8rem; font-weight: 800; color: #cbd5e1; flex-shrink: 0; }
+        .set-progress-bg { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
+        .set-progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+
+        /* TRACKER GRID */
+        .set-banner-box { display: flex; align-items: center; justify-content: space-between; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; gap: 14px; }
+        .set-banner-logo { max-height: 42px; max-width: 120px; object-fit: contain; }
+        .progress-container { flex-grow: 1; }
+        .progress-bar-bg { width: 100%; height: 8px; background: rgba(0,0,0,0.4); border-radius: 6px; overflow: hidden; margin-top: 6px; border: 1px solid var(--border-color); }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #10b981 0%, #34d399 100%); width: 0%; transition: width 0.4s ease; }
+
+        .tracker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 12px; max-height: 65vh; overflow-y: auto; padding: 12px; background: rgba(0,0,0,0.25); border-radius: 14px; border: 1px solid var(--border-color); margin-top: 14px; }
+        .tracker-card { position: relative; background: var(--surface-card); border-radius: 12px; border: 1px solid var(--border-color); padding: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.2s ease-in-out; user-select: none; }
+        .tracker-card-img { width: 100%; height: 125px; object-fit: contain; filter: grayscale(100%) opacity(0.35); transition: filter 0.25s ease, opacity 0.25s ease; pointer-events: none; }
+        .tracker-card-info { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-align: center; margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; pointer-events: none; }
+        .tracker-card.owned { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.08); }
+        .tracker-card.owned .tracker-card-img { filter: grayscale(0%) opacity(1); }
+        .tracker-card.owned .tracker-card-info { color: #a7f3d0; }
+        .count-badge { position: absolute; top: 6px; right: 6px; background: var(--accent-green); color: white; border-radius: 12px; padding: 2px 7px; font-size: 0.68rem; font-weight: 800; display: none; pointer-events: none; }
+        .tracker-card.owned .count-badge { display: block; }
+        .variant-pills { display: flex; gap: 3px; margin-top: 4px; flex-wrap: wrap; justify-content: center; pointer-events: none; }
+        .pill { font-size: 0.55rem; font-weight: 700; padding: 2px 5px; border-radius: 4px; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-color); }
+        .pill.rev { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+        .pill.holo { background: rgba(245, 158, 11, 0.2); color: #fde047; }
+        .card-menu-btn { position: absolute; top: 6px; left: 6px; background: rgba(15, 23, 42, 0.8); color: var(--text-muted); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; z-index: 10; border: 1px solid var(--border-color); }
+
+        /* MODAL VARIANTEN EDIT */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.open { display: flex; }
+        .modal-box { background: #131a29; border-radius: 18px; padding: 22px; width: 92%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid var(--border-color); }
+        .modal-header { font-weight: 800; font-size: 1.05rem; margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; color: var(--text-main); }
+        .variant-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+        .counter-btn { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--surface-card); color: var(--text-main); cursor: pointer; font-weight: bold; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header-title">
+            <h1 id="tracker-main-title">Serien & Erweiterungen</h1>
+            <button class="btn btn-outline" id="btn-back-to-series" style="display:none; padding:6px 12px; font-size:0.75rem;">◄ Übersicht</button>
+            <button class="btn btn-refresh" id="btn-refresh-database" style="padding:6px 12px; font-size:0.75rem;">🔄 Updates</button>
+            <span class="status-badge" id="tracker-status">Lade...</span>
+        </div>
+
+        <div class="search-box-wrapper" id="series-search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="series-search-input" class="search-input" placeholder="Serie, Set oder Kürzel suchen (z. B. Silver Tempest, DRI, BLK)...">
+        </div>
+        
+        <div class="series-accordion-container" id="series-accordion-container">
+            <div style="text-align:center; color:var(--text-muted); padding:30px;">Lade Serien und Sets...</div>
+        </div>
+
+        <div id="set-detail-view" style="display:none;">
+            <div class="set-banner-box" id="set-banner-box">
+                <img id="set-banner-logo" class="set-banner-logo" src="" alt="Set Logo">
+                <div class="progress-container">
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700;">
+                        <span style="color:var(--text-muted)">Fortschritt</span>
+                        <span id="tracker-stats" style="color:var(--accent-green)">0 / 0 (0%)</span>
+                    </div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+                </div>
+            </div>
+
+            <div class="tracker-grid" id="tracker-grid"></div>
+        </div>
+    </div>
+
+    <!-- MODAL: VARIANTEN BEARBEITEN -->
+    <div class="modal-overlay" id="variant-modal">
+        <div class="modal-box">
+            <div class="modal-header" id="modal-card-title">Karte bearbeiten</div>
+            <div>
+                <div class="variant-row" id="row-var-normal">
+                    <span>Standard / Normal</span>
+                    <div>
+                        <button class="counter-btn" id="btn-normal-minus">-</button>
+                        <span id="var-count-normal" style="margin: 0 8px; width: 20px; display:inline-block; text-align:center; color:var(--text-main);">0</span>
+                        <button class="counter-btn" id="btn-normal-plus">+</button>
+                    </div>
+                </div>
+                <div class="variant-row" id="row-var-reverse">
+                    <span>Reverse Holo</span>
+                    <div>
+                        <button class="counter-btn" id="btn-reverse-minus">-</button>
+                        <span id="var-count-reverse" style="margin: 0 8px; width: 20px; display:inline-block; text-align:center; color:var(--text-main);">0</span>
+                        <button class="counter-btn" id="btn-reverse-plus">+</button>
+                    </div>
+                </div>
+                <div class="variant-row" id="row-var-holo">
+                    <span>Holo / Special Art</span>
+                    <div>
+                        <button class="counter-btn" id="btn-holo-minus">-</button>
+                        <span id="var-count-holo" style="margin: 0 8px; width: 20px; display:inline-block; text-align:center; color:var(--text-main);">0</span>
+                        <button class="counter-btn" id="btn-holo-plus">+</button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%; margin-top:14px;" id="btn-close-modal">Speichern</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://api.tcgdex.net/v2/de';
+        const POKEMON_TCG_IO_BASE = 'https://api.pokemontcg.io/v2/cards';
+        
+        let allSetsData = [];
+        let currentCards = [];
+        let currentSetId = '';
+        let currentSetName = '';
+        let currentSetLogo = '';
+        let activeEditCardId = null;
+
+        const POKEMONTCG_IO_SET_MAP = {
+            'base1': 'base1', 'ju': 'base2', 'fo': 'base3', 'tr': 'base4', 'neo1': 'neo1',
+            'ex01': 'ex1', 'dp01': 'dp1', 'bw01': 'bw1', 'hgss01': 'hgss1',
+            'xy-promos': 'xyp', 'xyp': 'xyp', 'sm-promos': 'smp', 'smp': 'smp',
+            'swsh-promos': 'swshp', 'swshp': 'swshp', 'sv-promos': 'svp', 'svp': 'svp'
+        };
+
+        const KNOWN_SETS_DB = {
+            'me05': { year: 2026, code: 'PBL', nameEn: 'Pitch Black', nameDe: 'Dunkelnacht', total: 180 },
+            'me04': { year: 2026, code: 'CRI', nameEn: 'Chaos Rising', nameDe: 'Wachsendes Chaos', total: 190 },
+            'me03': { year: 2026, code: 'POR', nameEn: 'Perfect Order', nameDe: 'Optimale Ordnung', total: 175 },
+            'me02': { year: 2026, code: 'ASC', nameEn: 'Ascended Heroes', nameDe: 'Erhabene Helden', total: 210 },
+            '30th': { year: 2026, code: '30C', nameEn: '30th Celebration', nameDe: '30 Jahre', total: 100 },
+            'me01': { year: 2025, code: 'MEG', nameEn: 'Mega Evolution', nameDe: 'Mega-Entwicklung', total: 200 },
+            'sv10.5b': { year: 2025, code: 'BLK', nameEn: 'Black Bolt', nameDe: 'Black Bolt', total: 160 },
+            'sv10.5w': { year: 2025, code: 'WHT', nameEn: 'White Flare', nameDe: 'White Flare', total: 160 },
+            'sv10': { year: 2025, code: 'DRI', nameEn: 'Destined Rivals', nameDe: 'Destined Rivals', total: 180 },
+            'sv09': { year: 2025, code: 'JTG', nameEn: 'Journey Together', nameDe: 'Journey Together', total: 190 },
+            'sv08.5': { year: 2025, code: 'PRE', nameEn: 'Prismatic Evolutions', nameDe: 'Prismatische Entwicklungen', total: 175 },
+            'sv08': { year: 2024, code: 'SSP', nameEn: 'Surging Sparks', nameDe: 'Stürmische Funken', total: 250 },
+            'sv07': { year: 2024, code: 'SCR', nameEn: 'Stellar Crown', nameDe: 'Stellarkrone', total: 170 },
+            'sv06.5': { year: 2024, code: 'SFA', nameEn: 'Shrouded Fable', nameDe: 'Nebel der Sagen', total: 95 },
+            'sv06': { year: 2024, code: 'TWM', nameEn: 'Twilight Masquerade', nameDe: 'Maskerade von Zwielicht', total: 220 },
+            'sv05': { year: 2024, code: 'TEF', nameEn: 'Temporal Forces', nameDe: 'Gewalten der Zeit', total: 218 },
+            'sv04.5': { year: 2024, code: 'PAF', nameEn: 'Paldean Fates', nameDe: 'Paldeas Schicksale', total: 240 },
+            'sv04': { year: 2023, code: 'PAR', nameEn: 'Paradox Rift', nameDe: 'Paradoxrift', total: 260 },
+            'sv03.5': { year: 2023, code: 'MEW', nameEn: '151', nameDe: '151', total: 207 },
+            'sv03': { year: 2023, code: 'OBF', nameEn: 'Obsidian Flames', nameDe: 'Obsidianflammen', total: 230 },
+            'sv02': { year: 2023, code: 'PAL', nameEn: 'Paldea Evolved', nameDe: 'Entwicklungen in Paldea', total: 279 },
+            'sv01': { year: 2023, code: 'SVI', nameEn: 'Scarlet & Violet', nameDe: 'Karmesin & Purpur', total: 258 },
+            'swsh12.5': { year: 2023, code: 'CRZ', nameEn: 'Crown Zenith', nameDe: 'Zenit der Könige', total: 230 },
+            'swsh12': { year: 2022, code: 'SIT', nameEn: 'Silver Tempest', nameDe: 'Silberne Sturmwolken', total: 245 },
+            'swsh11': { year: 2022, code: 'LOR', nameEn: 'Lost Origin', nameDe: 'Verlorener Ursprung', total: 247 },
+            'swsh10': { year: 2022, code: 'ASR', nameEn: 'Astral Radiance', nameDe: 'Astralglanz', total: 246 },
+            'swsh09': { year: 2022, code: 'BRS', nameEn: 'Brilliant Stars', nameDe: 'Strahlende Sterne', total: 216 },
+            'swsh08': { year: 2021, code: 'FST', nameEn: 'Fusion Strike', nameDe: 'Fusionsangriff', total: 284 },
+            'swsh07': { year: 2021, code: 'EVS', nameEn: 'Evolving Skies', nameDe: 'Drachenwandel', total: 237 },
+            'base1': { year: 1999, code: 'BS', nameEn: 'Base Set', nameDe: 'Grundset', total: 102 }
+        };
+
+        const trackerStatus = document.getElementById('tracker-status');
+        const trackerGrid = document.getElementById('tracker-grid');
+        const trackerStats = document.getElementById('tracker-stats');
+        const progressFill = document.getElementById('progress-fill');
+        const setBannerBox = document.getElementById('set-banner-box');
+        const setBannerLogo = document.getElementById('set-banner-logo');
+
+        function getSetCollection(setId) {
+            try {
+                const data = localStorage.getItem(`collection_${setId}`);
+                return data ? JSON.parse(data) : {};
+            } catch(e) { return {}; }
+        }
+
+        function saveSetCollection(setId, data) {
+            try { localStorage.setItem(`collection_${setId}`, JSON.stringify(data)); } catch(e) {}
+        }
+
+        function getCardImageUrl(c, quality = 'low') {
+            if (!c || !c.image) return '';
+            let rawImg = c.image;
+            if (rawImg.endsWith('.webp') || rawImg.endsWith('.png') || rawImg.endsWith('.jpg')) return rawImg;
+            if (rawImg.startsWith('http')) return `${rawImg}/${quality}.webp`;
+            return `https://assets.tcgdex.net/de/${currentSetId}/${c.localId}/${quality}.webp`;
+        }
+
+        function getSetSymbolUrl(set, infoCode) {
+            const setIdClean = set.id.toLowerCase();
+            if (set.symbol) {
+                if (set.symbol.startsWith('http')) return `${set.symbol}.png`;
+                return `${set.symbol}.png`;
+            }
+            const ioSetId = POKEMONTCG_IO_SET_MAP[setIdClean] || setIdClean;
+            return `https://images.pokemontcg.io/${ioSetId}/symbol.png`;
+        }
+
+        async function handleImageError(imgElement, setId, localId) {
+            imgElement.style.opacity = '0.3';
+            const ioSetId = POKEMONTCG_IO_SET_MAP[setId.toLowerCase()] || setId.toLowerCase();
+            try {
+                const response = await fetch(`${POKEMON_TCG_IO_BASE}?q=set.id:${ioSetId}%20number:${localId}`);
+                const data = await response.json();
+                if (data && data.data && data.data.length > 0 && data.data[0].images) {
+                    imgElement.src = data.data[0].images.small;
+                    imgElement.style.opacity = '1';
+                }
+            } catch (err) {}
+        }
+
+        function checkIsUltraRareCard(cardName) {
+            const nameLower = (cardName || '').toLowerCase();
+            return nameLower.includes('-ex') || nameLower.includes(' ex') || 
+                   nameLower.includes(' v') || nameLower.includes('vmax') || 
+                   nameLower.includes('vstar') || nameLower.includes('gx');
+        }
+
+        async function init(forceRefresh = false) {
+            trackerStatus.textContent = forceRefresh ? 'Aktualisiere...' : 'Lade...';
+
+            try {
+                let fetchedSets = [];
+                try {
+                    const resSets = await fetch(`${API_BASE}/sets`);
+                    if (resSets.ok) fetchedSets = await resSets.json();
+                } catch (apiErr) {}
+
+                if (!fetchedSets || fetchedSets.length === 0) {
+                    allSetsData = Object.keys(KNOWN_SETS_DB).map(id => ({
+                        id: id, name: KNOWN_SETS_DB[id].nameDe, cardCount: { official: KNOWN_SETS_DB[id].total, total: KNOWN_SETS_DB[id].total }
+                    }));
+                } else {
+                    allSetsData = fetchedSets.filter(s => s.cardCount && s.cardCount.total > 0);
+                }
+
+                renderYearAccordion();
+                trackerStatus.textContent = 'Bereit';
+            } catch (err) {
+                trackerStatus.textContent = 'Bereit (Offline)';
+            }
+        }
+
+        function getOwnedCountForSet(setId) {
+            const collection = getSetCollection(setId);
+            let count = 0;
+            for (let cardId in collection) {
+                const item = collection[cardId];
+                if (((item.normal || 0) + (item.reverse || 0) + (item.holo || 0)) > 0) count++;
+            }
+            return count;
+        }
+
+        function getSetYearAndCode(set) {
+            const idClean = set.id.toLowerCase();
+            if (KNOWN_SETS_DB[idClean]) return KNOWN_SETS_DB[idClean];
+            let year = 2024;
+            if (idClean.startsWith('me')) year = 2026;
+            else if (idClean.startsWith('sv')) year = 2024;
+            else if (idClean.startsWith('swsh')) year = 2021;
+            else if (idClean.startsWith('sm')) year = 2018;
+            else if (idClean.startsWith('xy')) year = 2015;
+            else if (idClean.startsWith('base')) year = 1999;
+
+            let code = idClean.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 4);
+            return { year: year, code: code, nameEn: set.name, nameDe: set.name };
+        }
+
+        function renderYearAccordion(searchFilter = '') {
+            const container = document.getElementById('series-accordion-container');
+            container.innerHTML = '';
+            const searchLower = searchFilter.trim().toLowerCase();
+            const groupedByYear = {};
+
+            allSetsData.forEach(set => {
+                const info = getSetYearAndCode(set);
+                const year = info.year;
+
+                if (searchLower) {
+                    const matchNameDe = (set.name || '').toLowerCase().includes(searchLower);
+                    const matchCode = (info.code || '').toLowerCase().includes(searchLower);
+                    if (!matchNameDe && !matchCode && !year.toString().includes(searchLower)) return;
+                }
+
+                if (!groupedByYear[year]) groupedByYear[year] = [];
+                groupedByYear[year].push({ set: set, info: info });
+            });
+
+            const sortedYears = Object.keys(groupedByYear).sort((a, b) => parseInt(b) - parseInt(a));
+            if (sortedYears.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:30px;">Keine Sets gefunden.</div>';
+                return;
+            }
+
+            let isFirstYear = true;
+            sortedYears.forEach(year => {
+                const itemsInYear = groupedByYear[year];
+                const yearCard = document.createElement('div');
+                yearCard.className = `year-card ${isFirstYear || searchLower ? 'open' : ''}`;
+
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'year-header';
+                yearHeader.innerHTML = `
+                    <div class="year-title">
+                        <span>📅 Jahr ${year}</span>
+                        <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">(${itemsInYear.length} Sets)</span>
+                    </div>
+                    <div class="year-arrow">▼</div>
+                `;
+                yearHeader.onclick = () => yearCard.classList.toggle('open');
+
+                const setsList = document.createElement('div');
+                setsList.className = 'year-sets-list';
+
+                itemsInYear.forEach(item => {
+                    const s = item.set;
+                    const info = item.info;
+                    const total = s.cardCount.official || s.cardCount.total || 0;
+                    const owned = getOwnedCountForSet(s.id);
+                    const pct = total > 0 ? Math.round((owned / total) * 100) : 0;
+
+                    let barColor = 'var(--text-muted)';
+                    if (pct > 0 && pct < 20) barColor = 'var(--accent-red)';
+                    else if (pct >= 20 && pct < 50) barColor = 'var(--warning-color)';
+                    else if (pct >= 50) barColor = 'var(--accent-green)';
+
+                    const symbolUrl = getSetSymbolUrl(s, info.code);
+                    const setRow = document.createElement('div');
+                    setRow.className = 'set-item-row';
+                    setRow.innerHTML = `
+                        <div class="set-item-top">
+                            <div class="set-item-left">
+                                <div class="set-badge-icon">
+                                    <img class="set-badge-symbol-img" src="${symbolUrl}" alt="${info.code}" onerror="this.onerror=null; this.parentNode.innerHTML='${info.code}';">
+                                </div>
+                                <div class="set-item-name">${s.name}</div>
+                            </div>
+                            <div class="set-item-stats">${owned}/${total} <span style="opacity:0.6; font-size:0.75rem;">| ${pct}%</span></div>
+                        </div>
+                        <div class="set-progress-bg">
+                            <div class="set-progress-fill" style="width: ${pct}%; background: ${barColor};"></div>
+                        </div>
+                    `;
+                    setRow.onclick = (e) => { e.stopPropagation(); loadSet(s.id); };
+                    setsList.appendChild(setRow);
+                });
+
+                yearCard.appendChild(yearHeader);
+                yearCard.appendChild(setsList);
+                container.appendChild(yearCard);
+                isFirstYear = false;
+            });
+        }
+
+        function showSeriesList() {
+            document.getElementById('series-accordion-container').style.display = 'flex';
+            document.getElementById('series-search-wrapper').style.display = 'block';
+            document.getElementById('set-detail-view').style.display = 'none';
+            document.getElementById('btn-back-to-series').style.display = 'none';
+            document.getElementById('tracker-main-title').textContent = 'Serien & Erweiterungen';
+            renderYearAccordion(document.getElementById('series-search-input').value);
+        }
+
+        async function loadSet(setId) {
+            if (!setId) return;
+            currentSetId = setId;
+            document.getElementById('series-accordion-container').style.display = 'none';
+            document.getElementById('series-search-wrapper').style.display = 'none';
+            document.getElementById('set-detail-view').style.display = 'block';
+            document.getElementById('btn-back-to-series').style.display = 'inline-block';
+
+            trackerStatus.textContent = 'Lade Set...';
+
+            try {
+                let setData = null;
+                try {
+                    const res = await fetch(`${API_BASE}/sets/${setId}`);
+                    if (res.ok) setData = await res.json();
+                } catch (e) {}
+
+                if (setData) {
+                    currentSetName = setData.name || 'Pokémon Set';
+                    currentSetLogo = setData.logo ? `${setData.logo}.png` : '';
+                    currentCards = setData.cards || [];
+                }
+
+                document.getElementById('tracker-main-title').textContent = currentSetName;
+
+                if (currentSetLogo) {
+                    setBannerLogo.src = currentSetLogo;
+                    setBannerBox.style.display = 'flex';
+                } else {
+                    setBannerBox.style.display = 'none';
+                }
+
+                renderTrackerGrid();
+                trackerStatus.textContent = `${currentCards.length} Karten`;
+            } catch (err) {
+                trackerStatus.textContent = 'Fehler beim Laden';
+            }
+        }
+
+        function handleCardClick(setId, cardId, cardName) {
+            const collection = getSetCollection(setId);
+            const cardData = collection[cardId] || { normal: 0, reverse: 0, holo: 0, name: cardName };
+            const total = (cardData.normal || 0) + (cardData.reverse || 0) + (cardData.holo || 0);
+
+            if (total === 0) {
+                if (checkIsUltraRareCard(cardName)) {
+                    cardData.holo = 1; cardData.normal = 0;
+                } else {
+                    cardData.normal = 1;
+                }
+                cardData.name = cardName;
+                collection[cardId] = cardData;
+                saveSetCollection(setId, collection);
+                renderTrackerGrid();
+            } else {
+                openModal(cardId, cardName);
+            }
+        }
+
+        function renderTrackerGrid() {
+            if (!currentCards.length) {
+                trackerGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:30px;">Keine Karten gefunden.</div>';
+                return;
+            }
+            trackerGrid.innerHTML = '';
+            const collection = getSetCollection(currentSetId);
+            let uniqueCount = 0;
+
+            currentCards.forEach(c => {
+                const cardData = collection[c.id] || { normal: 0, reverse: 0, holo: 0, name: c.name };
+                const norm = cardData.normal || 0;
+                const rev = cardData.reverse || 0;
+                const holo = cardData.holo || 0;
+                const total = norm + rev + holo;
+
+                const isOwned = total > 0;
+                if (isOwned) uniqueCount++;
+
+                const cardEl = document.createElement('div');
+                cardEl.className = `tracker-card ${isOwned ? 'owned' : ''}`;
+                let imgUrl = getCardImageUrl(c, 'low');
+
+                cardEl.addEventListener('click', () => handleCardClick(currentSetId, c.id, c.name));
+
+                let pillsHtml = '';
+                if (norm > 0) pillsHtml += `<span class="pill">${norm}x N</span>`;
+                if (rev > 0) pillsHtml += `<span class="pill rev">${rev}x Rev</span>`;
+                if (holo > 0) pillsHtml += `<span class="pill holo">${holo}x Holo</span>`;
+
+                cardEl.innerHTML = `
+                    <div class="card-menu-btn">⚙</div>
+                    <div class="count-badge">${total}x</div>
+                    <img class="tracker-card-img" src="${imgUrl}" alt="${c.name}" loading="lazy" onerror="handleImageError(this, '${currentSetId}', '${c.localId}')">
+                    <div class="tracker-card-info">#${c.localId} ${c.name}</div>
+                    <div class="variant-pills">${pillsHtml}</div>
+                `;
+
+                cardEl.querySelector('.card-menu-btn').addEventListener('click', (e) => {
+                    e.stopPropagation(); openModal(c.id, c.name);
+                });
+                trackerGrid.appendChild(cardEl);
+            });
+
+            const totalCards = currentCards.length;
+            const pct = Math.round((uniqueCount / totalCards) * 100) || 0;
+            trackerStats.textContent = `${uniqueCount} / ${totalCards} (${pct}%)`;
+            progressFill.style.width = `${pct}%`;
+        }
+
+        function openModal(cardId, cardName) {
+            activeEditCardId = cardId;
+            const collection = getSetCollection(currentSetId);
+            const cardData = collection[cardId] || { normal: 0, reverse: 0, holo: 0 };
+
+            document.getElementById('modal-card-title').textContent = cardName;
+            document.getElementById('var-count-normal').textContent = cardData.normal || 0;
+            document.getElementById('var-count-reverse').textContent = cardData.reverse || 0;
+            document.getElementById('var-count-holo').textContent = cardData.holo || 0;
+            document.getElementById('variant-modal').classList.add('open');
+        }
+
+        function adjustVariant(type, amount) {
+            if (!activeEditCardId) return;
+            const collection = getSetCollection(currentSetId);
+            const cardData = collection[activeEditCardId] || { normal: 0, reverse: 0, holo: 0 };
+            cardData[type] = Math.max(0, (cardData[type] || 0) + amount);
+            collection[activeEditCardId] = cardData;
+            saveSetCollection(currentSetId, collection);
+            document.getElementById(`var-count-${type}`).textContent = cardData[type];
+            renderTrackerGrid();
+        }
+
+        function closeModal() {
+            document.getElementById('variant-modal').classList.remove('open');
+            activeEditCardId = null;
+        }
+
+        document.getElementById('series-search-input').addEventListener('input', (e) => renderYearAccordion(e.target.value));
+        document.getElementById('btn-refresh-database').addEventListener('click', () => init(true));
+        document.getElementById('btn-back-to-series').addEventListener('click', showSeriesList);
+
+        document.getElementById('btn-normal-minus').addEventListener('click', () => adjustVariant('normal', -1));
+        document.getElementById('btn-normal-plus').addEventListener('click', () => adjustVariant('normal', 1));
+        document.getElementById('btn-reverse-minus').addEventListener('click', () => adjustVariant('reverse', -1));
+        document.getElementById('btn-reverse-plus').addEventListener('click', () => adjustVariant('reverse', 1));
+        document.getElementById('btn-holo-minus').addEventListener('click', () => adjustVariant('holo', -1));
+        document.getElementById('btn-holo-plus').addEventListener('click', () => adjustVariant('holo', 1));
+        document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+
+        init();
+    </script>
+</body>
+</html>
