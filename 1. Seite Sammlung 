@@ -121,24 +121,24 @@
         .set-item-left { display: flex; align-items: center; gap: 12px; overflow: hidden; }
         
         .set-badge-icon { 
-            width: 32px; 
-            height: 32px; 
+            width: 36px; 
+            height: 36px; 
             border-radius: 8px; 
             background: #ffffff; 
             border: 1px solid var(--border-color); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 0.65rem; 
+            font-size: 0.7rem; 
             font-weight: 900; 
             color: #0f172a; 
             flex-shrink: 0; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             overflow: hidden;
-            padding: 4px;
+            padding: 3px;
         }
 
-        .set-badge-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 1px rgba(0,0,0,0.8)); }
+        .set-badge-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 1px rgba(0,0,0,0.5)); }
         .set-item-name { font-size: 0.88rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .set-item-stats { font-size: 0.8rem; font-weight: 800; color: #cbd5e1; flex-shrink: 0; }
         .set-progress-bg { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
@@ -292,6 +292,18 @@
             'swsh09': { year: 2022, code: 'BRS', nameEn: 'Brilliant Stars', nameDe: 'Strahlende Sterne', total: 216 },
             'swsh08': { year: 2021, code: 'FST', nameEn: 'Fusion Strike', nameDe: 'Fusionsangriff', total: 284 },
             'swsh07': { year: 2021, code: 'EVS', nameEn: 'Evolving Skies', nameDe: 'Drachenwandel', total: 237 },
+            'swsh06': { year: 2021, code: 'CRE', nameEn: 'Chilling Reign', nameDe: 'Schauerland', total: 233 },
+            'swsh05': { year: 2021, code: 'BST', nameEn: 'Battle Styles', nameDe: 'Kampfstile', total: 183 },
+            'swsh04.5': { year: 2021, code: 'SHF', nameEn: 'Shining Fates', nameDe: 'Glänzendes Schicksal', total: 195 },
+            'swsh04': { year: 2020, code: 'VIV', nameEn: 'Vivid Voltage', nameDe: 'Farbenschock', total: 203 },
+            'swsh03': { year: 2020, code: 'DAA', nameEn: 'Darkness Ablaze', nameDe: 'Flammende Finsternis', total: 201 },
+            'swsh01': { year: 2020, code: 'SSH', nameEn: 'Sword & Shield', nameDe: 'Schwert & Schild', total: 216 },
+            'sm12': { year: 2019, code: 'CEC', nameEn: 'Cosmic Eclipse', nameDe: 'Weltenwandel', total: 271 },
+            'sm11.5': { year: 2019, code: 'HIF', nameEn: 'Hidden Fates', nameDe: 'Verborgenes Schicksal', total: 163 },
+            'sm01': { year: 2017, code: 'SUM', nameEn: 'Sun & Moon', nameDe: 'Sonne & Mond', total: 163 },
+            'xy12': { year: 2016, code: 'EVO', nameEn: 'Evolutions', nameDe: 'Evolution', total: 113 },
+            'tr': { year: 2000, code: 'TR', nameEn: 'Team Rocket', nameDe: 'Team Rocket', total: 83 },
+            'ju': { year: 1999, code: 'JU', nameEn: 'Jungle', nameDe: 'Dschungel', total: 64 },
             'base1': { year: 1999, code: 'BS', nameEn: 'Base Set', nameDe: 'Grundset', total: 102 }
         };
 
@@ -466,7 +478,7 @@
                         <div class="set-item-top">
                             <div class="set-item-left">
                                 <div class="set-badge-icon">
-                                    <img class="set-badge-symbol-img" src="${symbolUrl}" alt="${info.code}" onerror="this.onerror=null; this.parentNode.innerHTML='${info.code}';">
+                                    <img class="set-badge-symbol-img" src="${symbolUrl}" alt="${info.code}" onerror="this.onerror=null; this.parentNode.innerHTML='<b>${info.code}</b>';">
                                 </div>
                                 <div class="set-item-name">${s.name}</div>
                             </div>
