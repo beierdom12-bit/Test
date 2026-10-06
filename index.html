@@ -236,7 +236,7 @@
         .camera-box { 
             position: relative; 
             width: 100%; 
-            max-width: 360px; 
+            max-width: 340px; 
             aspect-ratio: 63 / 88; /* EXAKTES POKÉMON-KARTEN PROPORTIONSSVERHÄLTNIS */
             background: #000; 
             border-radius: 16px; 
@@ -266,7 +266,67 @@
         }
         .camera-guide-text { color: white; font-size: 0.72rem; font-weight: 700; background: rgba(0,0,0,0.8); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
 
-        .psa-step-badge { background: var(--psa-red); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: inline-block; }
+        /* NEU: PSA STEP & PREVIEW STYLES */
+        .psa-step-badge { background: var(--psa-red); color: white; padding: 6px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; display: inline-block; }
+
+        .psa-mini-preview-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .psa-preview-thumb {
+            width: 65px;
+            aspect-ratio: 63/88;
+            border-radius: 6px;
+            border: 2px solid var(--primary-color);
+            object-fit: cover;
+            background: #000;
+        }
+
+        .psa-preview-placeholder {
+            width: 65px;
+            aspect-ratio: 63/88;
+            border-radius: 6px;
+            border: 2px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .psa-compare-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .psa-compare-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .psa-compare-img {
+            width: 100%;
+            aspect-ratio: 63/88;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 6px;
+        }
 
         .psa-slab-box { background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%); color: #0f172a; border: 3px solid var(--psa-red); border-radius: 10px; padding: 8px 18px; text-align: center; box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3); min-width: 150px; }
         .psa-slab-title { font-size: 0.65rem; font-weight: 900; color: var(--psa-red); letter-spacing: 1px; }
@@ -478,10 +538,27 @@
                 <span class="status-badge" id="psa-status" style="color:var(--psa-red)">Bereit</span>
             </div>
 
-            <div style="text-align:center; margin-bottom:12px;">
+            <div style="text-align:center; margin-bottom:10px;">
                 <span class="psa-step-badge" id="psa-step-indicator">Schritt 1: VORDERSEITE SCANNEN</span>
             </div>
 
+            <!-- Vorschau-Bilder der gescannten Seiten -->
+            <div class="psa-mini-preview-container" id="psa-preview-bar">
+                <div style="text-align:center;">
+                    <div style="font-size:0.65rem; color:var(--text-muted); font-weight:700; margin-bottom:2px;">Vorderseite</div>
+                    <div id="psa-thumb-front-wrapper">
+                        <div class="psa-preview-placeholder">Kein Bild</div>
+                    </div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:0.65rem; color:var(--text-muted); font-weight:700; margin-bottom:2px;">Rückseite</div>
+                    <div id="psa-thumb-back-wrapper">
+                        <div class="psa-preview-placeholder">Kein Bild</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE KAMERA SUCHER -->
             <div class="camera-box" id="psa-camera-box">
                 <video id="psa-video" class="camera-video" autoplay playsinline muted></video>
                 <canvas id="psa-canvas" class="camera-canvas"></canvas>
@@ -492,10 +569,23 @@
 
             <div class="btn-group">
                 <button class="btn btn-pdf" id="btn-psa-start-cam">📷 Kamera an</button>
-                <button class="btn btn-psa" id="btn-psa-analyze" disabled>🔬 Seite analysieren</button>
+                <button class="btn btn-psa" id="btn-psa-analyze" disabled>📷 Vorderseite aufnehmen</button>
             </div>
 
+            <!-- ERGEBNISSE & VERGLEICHSBILDER -->
             <div style="margin-top:18px; display:none;" id="psa-results-container">
+                
+                <div class="psa-compare-grid">
+                    <div class="psa-compare-card">
+                        <div style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">VORDERSEITE</div>
+                        <img id="psa-img-compare-front" class="psa-compare-img" src="" alt="Front">
+                    </div>
+                    <div class="psa-compare-card">
+                        <div style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">RÜCKSEITE</div>
+                        <img id="psa-img-compare-back" class="psa-compare-img" src="" alt="Back">
+                    </div>
+                </div>
+
                 <div style="display:flex; justify-content:center; margin-bottom:14px;">
                     <div class="psa-slab-box">
                         <div class="psa-slab-title">PSA ESTIMATE</div>
@@ -505,11 +595,11 @@
 
                 <div class="analysis-card-grid">
                     <div class="analysis-stat-box">
-                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">VORDERSEITE</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">NOTE VORDERSEITE</div>
                         <div class="analysis-stat-val" id="psa-stat-front" style="color:var(--primary-color)">-</div>
                     </div>
                     <div class="analysis-stat-box">
-                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">RÜCKSEITE</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">NOTE RÜCKSEITE</div>
                         <div class="analysis-stat-val" id="psa-stat-back" style="color:var(--primary-color)">-</div>
                     </div>
                     <div class="analysis-stat-box">
@@ -622,6 +712,8 @@
         let psaCurrentStep = 'front'; // 'front' or 'back'
         let psaFrontScore = null;
         let psaBackScore = null;
+        let psaFrontImgDataUrl = null;
+        let psaBackImgDataUrl = null;
 
         const POKEMONTCG_IO_SET_MAP = {
             'base1': 'base1', 'ju': 'base2', 'fo': 'base3', 'tr': 'base4', 'neo1': 'neo1',
@@ -1371,7 +1463,7 @@
         }
 
         /* ------------------------------------------------------------- */
-        /* PSA PRE-GRADER MIT ZWEI-SCHRITT-ANALYSE (VOR- & RÜCKSEITE)   */
+        /* PSA PRE-GRADER MIT ZWEI-SCHRITT-ANALYSE & LIVE-PREVIEW       */
         /* ------------------------------------------------------------- */
         async function startPsaCamera() {
             const video = document.getElementById('psa-video');
@@ -1400,12 +1492,22 @@
             psaCurrentStep = 'front';
             psaFrontScore = null;
             psaBackScore = null;
+            psaFrontImgDataUrl = null;
+            psaBackImgDataUrl = null;
+
             document.getElementById('psa-step-indicator').textContent = 'Schritt 1: VORDERSEITE SCANNEN';
             document.getElementById('psa-guide-text').textContent = 'Vorderseite genau im Rahmen ausrichten';
-            document.getElementById('btn-psa-analyze').textContent = '🔬 Vorderseite analysieren';
+            document.getElementById('btn-psa-analyze').textContent = '📷 Vorderseite aufnehmen';
             document.getElementById('psa-results-container').style.display = 'none';
+            document.getElementById('psa-camera-box').style.display = 'flex';
+            
+            document.getElementById('psa-thumb-front-wrapper').innerHTML = '<div class="psa-preview-placeholder">Kein Bild</div>';
+            document.getElementById('psa-thumb-back-wrapper').innerHTML = '<div class="psa-preview-placeholder">Kein Bild</div>';
+            
             document.getElementById('psa-stat-front').textContent = '-';
             document.getElementById('psa-stat-back').textContent = '-';
+
+            if (!psaCameraStream) startPsaCamera();
         }
 
         function analyzeCardImage() {
@@ -1413,12 +1515,13 @@
             const canvas = document.getElementById('psa-canvas');
             const statusBadge = document.getElementById('psa-status');
 
-            statusBadge.textContent = `Analysiere ${psaCurrentStep === 'front' ? 'Vorderseite' : 'Rückseite'}...`;
-
             canvas.width = video.videoWidth || 1920;
             canvas.height = video.videoHeight || 1080;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Bild als Data URL für Vorschau speichern
+            const currentSnapDataUrl = canvas.toDataURL('image/jpeg', 0.8);
 
             const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const pixels = imgData.data;
@@ -1458,7 +1561,7 @@
                 }
             }
 
-            // Notenberechnung für die gewählte Seite
+            // Notenberechnung
             let stepGrade = 10;
             if (highContrastLines > 12 || whiteningCount >= 2) {
                 stepGrade = 4; // Schwerer Knick / Abnutzung / Schmutz
@@ -1469,21 +1572,37 @@
             }
 
             if (psaCurrentStep === 'front') {
+                // SCHRITT 1: VORDERSEITE GESPEICHERT
                 psaFrontScore = stepGrade;
+                psaFrontImgDataUrl = currentSnapDataUrl;
+
+                document.getElementById('psa-thumb-front-wrapper').innerHTML = `<img class="psa-preview-thumb" src="${psaFrontImgDataUrl}" alt="Front">`;
                 document.getElementById('psa-stat-front').textContent = `PSA ${psaFrontScore}`;
-                
-                // Wechsel zu Schritt 2: Rückseite
+
+                // Nächster Schritt: Rückseite
                 psaCurrentStep = 'back';
                 document.getElementById('psa-step-indicator').textContent = 'Schritt 2: RÜCKSEITE SCANNEN';
                 document.getElementById('psa-guide-text').textContent = 'Karte umdrehen & Rückseite ausrichten';
-                document.getElementById('btn-psa-analyze').textContent = '🔬 Rückseite analysieren';
-                statusBadge.textContent = 'Vorderseite gescannt. Bitte umdrehen!';
+                document.getElementById('btn-psa-analyze').textContent = '📷 Rückseite aufnehmen';
+                
+                statusBadge.textContent = 'Vorderseite im Kasten! Jetzt Rückseite knipsen.';
                 statusBadge.style.color = 'var(--warning-color)';
             } else {
+                // SCHRITT 2: RÜCKSEITE GESPEICHERT -> FINALES ERGEBNIS
                 psaBackScore = stepGrade;
+                psaBackImgDataUrl = currentSnapDataUrl;
+
+                document.getElementById('psa-thumb-back-wrapper').innerHTML = `<img class="psa-preview-thumb" src="${psaBackImgDataUrl}" alt="Back">`;
                 document.getElementById('psa-stat-back').textContent = `PSA ${psaBackScore}`;
 
-                // Gesamtergebnis berechnen (Das schlechtere der beiden Ergebnisse zählt!)
+                // Fotos in Vergleichsansicht laden
+                document.getElementById('psa-img-compare-front').src = psaFrontImgDataUrl;
+                document.getElementById('psa-img-compare-back').src = psaBackImgDataUrl;
+
+                // Kamera-Kasten ausblenden
+                document.getElementById('psa-camera-box').style.display = 'none';
+
+                // Gesamtergebnis berechnen (Das schlechtere Ergebnis bestimmt die Note)
                 const finalGrade = Math.min(psaFrontScore, psaBackScore);
                 document.getElementById('psa-result-grade').textContent = `PSA ${finalGrade}`;
 
@@ -1496,14 +1615,14 @@
                     cornersStat.style.color = 'var(--psa-red)';
                     edgesStat.textContent = 'Beschädigt';
                     edgesStat.style.color = 'var(--psa-red)';
-                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Played/Damaged):</b> Auf einer der Seiten wurden Knicke, Schmutz oder Abnutzungen erkannt. Ein Einsenden zum Grading lohnt sich finanziell nicht.`;
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Played/Damaged):</b> Starke Knicke, Flecken oder Abnutzung erkannt. Die Karte ist in gebrauchtem Zustand. Ein Grading lohnt sich finanziell nicht.`;
                     verdictBox.style.borderColor = 'var(--psa-red)';
                 } else if (finalGrade <= 8) {
                     cornersStat.textContent = 'Sichtbarer Abrieb';
                     cornersStat.style.color = 'var(--warning-color)';
                     edgesStat.textContent = 'Gebrauchsspuren';
                     edgesStat.style.color = 'var(--warning-color)';
-                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Near Mint):</b> Die Karte zeigt leichte Abnutzungen am Rand oder kleine Oberflächenfehler.`;
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Near Mint):</b> Leichte Abnutzung am Rand oder kleine Oberflächenfehler erkannt.`;
                     verdictBox.style.borderColor = 'var(--warning-color)';
                 } else {
                     cornersStat.textContent = 'Sauber';
