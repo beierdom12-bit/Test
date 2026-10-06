@@ -157,7 +157,6 @@
         .btn-psa { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); color: white; }
         .btn-outline { background: var(--surface-card); border: 1px solid var(--border-color); color: var(--text-main); }
         .btn-refresh { background: rgba(59, 130, 246, 0.15); border: 1px solid var(--primary-color); color: #93c5fd; }
-        .btn-refresh:hover { background: rgba(59, 130, 246, 0.3); }
 
         /* REITER / AKKORDEON STYLES */
         .series-accordion-container { display: flex; flex-direction: column; gap: 12px; }
@@ -194,23 +193,15 @@
             padding: 4px;
         }
 
-        .set-badge-symbol-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 1px rgba(0,0,0,0.8));
-        }
-
+        .set-badge-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 1px rgba(0,0,0,0.8)); }
         .set-item-name { font-size: 0.88rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .set-item-stats { font-size: 0.8rem; font-weight: 800; color: #cbd5e1; flex-shrink: 0; }
-
         .set-progress-bg { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
         .set-progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
 
-        /* TRACKER GRID & MODAL STYLES */
+        /* TRACKER GRID */
         .set-banner-box { display: flex; align-items: center; justify-content: space-between; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; gap: 14px; }
         .set-banner-logo { max-height: 42px; max-width: 120px; object-fit: contain; }
-
         .progress-container { flex-grow: 1; }
         .progress-bar-bg { width: 100%; height: 8px; background: rgba(0,0,0,0.4); border-radius: 6px; overflow: hidden; margin-top: 6px; border: 1px solid var(--border-color); }
         .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #10b981 0%, #34d399 100%); width: 0%; transition: width 0.4s ease; }
@@ -219,19 +210,15 @@
         .tracker-card { position: relative; background: var(--surface-card); border-radius: 12px; border: 1px solid var(--border-color); padding: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.2s ease-in-out; user-select: none; }
         .tracker-card-img { width: 100%; height: 125px; object-fit: contain; filter: grayscale(100%) opacity(0.35); transition: filter 0.25s ease, opacity 0.25s ease; pointer-events: none; }
         .tracker-card-info { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-align: center; margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; pointer-events: none; }
-
         .tracker-card.owned { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.08); }
         .tracker-card.owned .tracker-card-img { filter: grayscale(0%) opacity(1); }
         .tracker-card.owned .tracker-card-info { color: #a7f3d0; }
-
         .count-badge { position: absolute; top: 6px; right: 6px; background: var(--accent-green); color: white; border-radius: 12px; padding: 2px 7px; font-size: 0.68rem; font-weight: 800; display: none; pointer-events: none; }
         .tracker-card.owned .count-badge { display: block; }
-
         .variant-pills { display: flex; gap: 3px; margin-top: 4px; flex-wrap: wrap; justify-content: center; pointer-events: none; }
         .pill { font-size: 0.55rem; font-weight: 700; padding: 2px 5px; border-radius: 4px; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-color); }
         .pill.rev { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
         .pill.holo { background: rgba(245, 158, 11, 0.2); color: #fde047; }
-
         .card-menu-btn { position: absolute; top: 6px; left: 6px; background: rgba(15, 23, 42, 0.8); color: var(--text-muted); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; z-index: 10; border: 1px solid var(--border-color); }
 
         /* BINDER SYSTEM */
@@ -246,11 +233,40 @@
         .binder-price-badge { position: absolute; bottom: 4px; right: 4px; background: rgba(15, 23, 42, 0.9); color: #34d399; border: 1px solid #10b981; font-size: 0.62rem; font-weight: 800; padding: 2px 6px; border-radius: 6px; z-index: 5; }
 
         /* KAMERA SCANNER & PSA STYLES */
-        .camera-box { position: relative; width: 100%; max-width: 440px; aspect-ratio: 3/4; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+        .camera-box { 
+            position: relative; 
+            width: 100%; 
+            max-width: 360px; 
+            aspect-ratio: 63 / 88; /* EXAKTES POKÉMON-KARTEN PROPORTIONSSVERHÄLTNIS */
+            background: #000; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            border: 2px solid var(--border-color); 
+            margin: 0 auto 16px auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5); 
+        }
         .camera-video { width: 100%; height: 100%; object-fit: cover; }
         .camera-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .camera-guide-box { position: absolute; width: 72%; height: 76%; border: 2px dashed var(--psa-red); border-radius: 12px; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55); pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 12px; }
-        .camera-guide-text { color: white; font-size: 0.72rem; font-weight: 700; background: rgba(0,0,0,0.75); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border-color); }
+        .camera-guide-box { 
+            position: absolute; 
+            width: 85%; 
+            height: 85%; 
+            border: 2px dashed var(--psa-red); 
+            border-radius: 12px; 
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.65); 
+            pointer-events: none; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 12px; 
+        }
+        .camera-guide-text { color: white; font-size: 0.72rem; font-weight: 700; background: rgba(0,0,0,0.8); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
+
+        .psa-step-badge { background: var(--psa-red); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: inline-block; }
 
         .psa-slab-box { background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%); color: #0f172a; border: 3px solid var(--psa-red); border-radius: 10px; padding: 8px 18px; text-align: center; box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3); min-width: 150px; }
         .psa-slab-title { font-size: 0.65rem; font-weight: 900; color: var(--psa-red); letter-spacing: 1px; }
@@ -458,22 +474,25 @@
     <div id="tab-psa" class="tab-content">
         <div class="controls-container">
             <div class="header-title">
-                <h1>Kamera PSA Pre-Grader</h1>
+                <h1>PSA Pre-Grader (Vor- & Rückseite)</h1>
                 <span class="status-badge" id="psa-status" style="color:var(--psa-red)">Bereit</span>
+            </div>
+
+            <div style="text-align:center; margin-bottom:12px;">
+                <span class="psa-step-badge" id="psa-step-indicator">Schritt 1: VORDERSEITE SCANNEN</span>
             </div>
 
             <div class="camera-box" id="psa-camera-box">
                 <video id="psa-video" class="camera-video" autoplay playsinline muted></video>
                 <canvas id="psa-canvas" class="camera-canvas"></canvas>
                 <div class="camera-guide-box" id="psa-guide-box">
-                    <span class="camera-guide-text">Gutes Licht & flacher Untergrund</span>
-                    <span class="camera-guide-text">Karte genau im Rahmen ausrichten</span>
+                    <span class="camera-guide-text" id="psa-guide-text">Karte genau im Rahmen ausrichten</span>
                 </div>
             </div>
 
             <div class="btn-group">
                 <button class="btn btn-pdf" id="btn-psa-start-cam">📷 Kamera an</button>
-                <button class="btn btn-psa" id="btn-psa-analyze" disabled>🔬 Karte analysieren</button>
+                <button class="btn btn-psa" id="btn-psa-analyze" disabled>🔬 Seite analysieren</button>
             </div>
 
             <div style="margin-top:18px; display:none;" id="psa-results-container">
@@ -486,25 +505,27 @@
 
                 <div class="analysis-card-grid">
                     <div class="analysis-stat-box">
-                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">ZENTRIERUNG L/R</div>
-                        <div class="analysis-stat-val" id="psa-stat-lr" style="color:var(--primary-color)">51/49</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">VORDERSEITE</div>
+                        <div class="analysis-stat-val" id="psa-stat-front" style="color:var(--primary-color)">-</div>
                     </div>
                     <div class="analysis-stat-box">
-                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">ZENTRIERUNG O/U</div>
-                        <div class="analysis-stat-val" id="psa-stat-tb" style="color:var(--primary-color)">53/47</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">RÜCKSEITE</div>
+                        <div class="analysis-stat-val" id="psa-stat-back" style="color:var(--primary-color)">-</div>
                     </div>
                     <div class="analysis-stat-box">
-                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">ECKEN (WHITENING)</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">ECKEN / WHITENING</div>
                         <div class="analysis-stat-val" id="psa-stat-corners" style="color:var(--accent-green)">Sauber</div>
                     </div>
                     <div class="analysis-stat-box">
-                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">KANTEN-ZUSTAND</div>
-                        <div class="analysis-stat-val" id="psa-stat-edges" style="color:var(--accent-green)">Makellos</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">KNICKE / FLECKEN</div>
+                        <div class="analysis-stat-val" id="psa-stat-edges" style="color:var(--accent-green)">Keine</div>
                     </div>
                 </div>
 
                 <div style="background:rgba(15, 23, 42, 0.8); border:1px solid var(--border-color); padding:12px; border-radius:10px; font-size:0.8rem; color:var(--text-muted); line-height:1.4; margin-top:12px;" id="psa-result-verdict">
                 </div>
+
+                <button class="btn btn-outline" id="btn-psa-reset" style="width:100%; margin-top:14px;">🔄 Neue Karte scannen</button>
             </div>
         </div>
     </div>
@@ -597,24 +618,16 @@
         let psaCameraStream = null;
         const cardDetailsCache = new Map();
 
+        // PSA GRADING VARIABLES
+        let psaCurrentStep = 'front'; // 'front' or 'back'
+        let psaFrontScore = null;
+        let psaBackScore = null;
+
         const POKEMONTCG_IO_SET_MAP = {
-            'base1': 'base1',
-            'ju': 'base2',
-            'fo': 'base3',
-            'tr': 'base4',
-            'neo1': 'neo1',
-            'ex01': 'ex1',
-            'dp01': 'dp1',
-            'bw01': 'bw1',
-            'hgss01': 'hgss1',
-            'xy-promos': 'xyp',
-            'xyp': 'xyp',
-            'sm-promos': 'smp',
-            'smp': 'smp',
-            'swsh-promos': 'swshp',
-            'swshp': 'swshp',
-            'sv-promos': 'svp',
-            'svp': 'svp'
+            'base1': 'base1', 'ju': 'base2', 'fo': 'base3', 'tr': 'base4', 'neo1': 'neo1',
+            'ex01': 'ex1', 'dp01': 'dp1', 'bw01': 'bw1', 'hgss01': 'hgss1',
+            'xy-promos': 'xyp', 'xyp': 'xyp', 'sm-promos': 'smp', 'smp': 'smp',
+            'swsh-promos': 'swshp', 'swshp': 'swshp', 'sv-promos': 'svp', 'svp': 'svp'
         };
 
         const KNOWN_SETS_DB = {
@@ -755,12 +768,8 @@
         function getCardImageUrl(c, quality = 'low') {
             if (!c || !c.image) return '';
             let rawImg = c.image;
-            if (rawImg.endsWith('.webp') || rawImg.endsWith('.png') || rawImg.endsWith('.jpg')) {
-                return rawImg;
-            }
-            if (rawImg.startsWith('http')) {
-                return `${rawImg}/${quality}.webp`;
-            }
+            if (rawImg.endsWith('.webp') || rawImg.endsWith('.png') || rawImg.endsWith('.jpg')) return rawImg;
+            if (rawImg.startsWith('http')) return `${rawImg}/${quality}.webp`;
             return `https://assets.tcgdex.net/de/${currentSetId}/${c.localId}/${quality}.webp`;
         }
 
@@ -776,20 +785,15 @@
 
         async function handleImageError(imgElement, setId, localId) {
             imgElement.style.opacity = '0.3';
-            
             const ioSetId = POKEMONTCG_IO_SET_MAP[setId.toLowerCase()] || setId.toLowerCase();
             try {
                 const response = await fetch(`${POKEMON_TCG_IO_BASE}?q=set.id:${ioSetId}%20number:${localId}`);
                 const data = await response.json();
-                
                 if (data && data.data && data.data.length > 0 && data.data[0].images) {
-                    const newImageUrl = data.data[0].images.small;
-                    imgElement.src = newImageUrl;
+                    imgElement.src = data.data[0].images.small;
                     imgElement.style.opacity = '1';
                 }
-            } catch (err) {
-                console.log('Image Fallback Failed', err);
-            }
+            } catch (err) {}
         }
 
         async function fetchBackupCardsForSet(setId) {
@@ -797,7 +801,6 @@
             try {
                 const response = await fetch(`${POKEMON_TCG_IO_BASE}?q=set.id:${ioSetId}&orderBy=number&pageSize=250`);
                 const data = await response.json();
-
                 if (data && data.data && data.data.length > 0) {
                     return data.data.map(card => {
                         const numVal = parseInt(card.number) || 999;
@@ -810,9 +813,7 @@
                         };
                     }).sort((a, b) => a.rawNumber - b.rawNumber);
                 }
-            } catch (e) {
-                console.log('Backup Set Fetch Failed', e);
-            }
+            } catch (e) {}
             return [];
         }
 
@@ -831,7 +832,6 @@
         function checkIsUltraRareCard(cardName, rarity = '') {
             const nameLower = (cardName || '').toLowerCase();
             const rarityLower = (rarity || '').toLowerCase();
-
             return nameLower.includes('-ex') || nameLower.includes(' ex') || 
                    nameLower.includes(' v') || nameLower.includes('vmax') || 
                    nameLower.includes('vstar') || nameLower.includes('gx') ||
@@ -844,20 +844,14 @@
             trackerStatus.textContent = forceRefresh ? 'Aktualisiere...' : 'Lade...';
             genStatus.textContent = forceRefresh ? 'Aktualisiere...' : 'Lade...';
 
-            if (forceRefresh) {
-                cardDetailsCache.clear();
-            }
+            if (forceRefresh) cardDetailsCache.clear();
 
             try {
                 let fetchedSets = [];
                 try {
                     const resSets = await fetch(`${API_BASE}/sets`);
-                    if (resSets.ok) {
-                        fetchedSets = await resSets.json();
-                    }
-                } catch (apiErr) {
-                    console.log('API Fetch Fehlschlag, wende Fallback an', apiErr);
-                }
+                    if (resSets.ok) fetchedSets = await resSets.json();
+                } catch (apiErr) {}
 
                 if (!fetchedSets || fetchedSets.length === 0) {
                     allSetsData = buildFallbackSetsList();
@@ -873,26 +867,21 @@
                     return b.id.localeCompare(a.id);
                 });
 
-                const optionsHtml = '<option value="">-- Set auswählen --</option>' + 
+                genSetSelect.innerHTML = '<option value="">-- Set auswählen --</option>' + 
                     sortedSetsForSelect.map(s => `<option value="${s.id}">${s.name} (${s.cardCount.official || s.cardCount.total} Karten)</option>`).join('');
-                genSetSelect.innerHTML = optionsHtml;
                 genSetSelect.disabled = false;
 
                 renderYearAccordion();
+                if (currentSetId) await loadSet(currentSetId);
 
-                if (currentSetId) {
-                    await loadSet(currentSetId);
-                }
-
-                trackerStatus.textContent = forceRefresh ? 'Bereit (aktualisiert)' : 'Bereit';
-                genStatus.textContent = forceRefresh ? 'Bereit (aktualisiert)' : 'Bereit';
-
+                trackerStatus.textContent = 'Bereit';
+                genStatus.textContent = 'Bereit';
                 renderBinderPage();
             } catch (err) {
                 allSetsData = buildFallbackSetsList();
                 renderYearAccordion();
-                trackerStatus.textContent = 'Bereit (Offline-Modus)';
-                genStatus.textContent = 'Bereit (Offline-Modus)';
+                trackerStatus.textContent = 'Bereit (Offline)';
+                genStatus.textContent = 'Bereit (Offline)';
             }
         }
 
@@ -901,19 +890,14 @@
             let count = 0;
             for (let cardId in collection) {
                 const item = collection[cardId];
-                if (((item.normal || 0) + (item.reverse || 0) + (item.holo || 0)) > 0) {
-                    count++;
-                }
+                if (((item.normal || 0) + (item.reverse || 0) + (item.holo || 0)) > 0) count++;
             }
             return count;
         }
 
         function getSetYearAndCode(set) {
             const idClean = set.id.toLowerCase();
-            if (KNOWN_SETS_DB[idClean]) {
-                return KNOWN_SETS_DB[idClean];
-            }
-
+            if (KNOWN_SETS_DB[idClean]) return KNOWN_SETS_DB[idClean];
             let year = 2024;
             if (idClean.startsWith('me')) year = 2026;
             else if (idClean.startsWith('sv')) year = 2024;
@@ -925,14 +909,12 @@
             else if (idClean.startsWith('base') || idClean.startsWith('neo')) year = 2000;
 
             let code = idClean.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 4);
-
             return { year: year, code: code, nameEn: set.name, nameDe: set.name };
         }
 
         function renderYearAccordion(searchFilter = '') {
             const container = document.getElementById('series-accordion-container');
             container.innerHTML = '';
-
             const searchLower = searchFilter.trim().toLowerCase();
             const groupedByYear = {};
 
@@ -945,10 +927,7 @@
                     const matchNameEn = (info.nameEn || '').toLowerCase().includes(searchLower);
                     const matchCode = (info.code || '').toLowerCase().includes(searchLower);
                     const matchYear = year.toString().includes(searchLower);
-
-                    if (!matchNameDe && !matchNameEn && !matchCode && !matchYear) {
-                        return;
-                    }
+                    if (!matchNameDe && !matchNameEn && !matchCode && !matchYear) return;
                 }
 
                 if (!groupedByYear[year]) groupedByYear[year] = [];
@@ -956,17 +935,14 @@
             });
 
             const sortedYears = Object.keys(groupedByYear).sort((a, b) => parseInt(b) - parseInt(a));
-
             if (sortedYears.length === 0) {
-                container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:30px;">Keine Sets für diese Suche gefunden.</div>';
+                container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:30px;">Keine Sets gefunden.</div>';
                 return;
             }
 
             let isFirstYear = true;
-
             sortedYears.forEach(year => {
                 const itemsInYear = groupedByYear[year];
-
                 const yearCard = document.createElement('div');
                 yearCard.className = `year-card ${isFirstYear || searchLower ? 'open' : ''}`;
 
@@ -979,10 +955,7 @@
                     </div>
                     <div class="year-arrow">▼</div>
                 `;
-
-                yearHeader.onclick = () => {
-                    yearCard.classList.toggle('open');
-                };
+                yearHeader.onclick = () => yearCard.classList.toggle('open');
 
                 const setsList = document.createElement('div');
                 setsList.className = 'year-sets-list';
@@ -990,7 +963,6 @@
                 itemsInYear.forEach(item => {
                     const s = item.set;
                     const info = item.info;
-
                     const total = s.cardCount.official || s.cardCount.total || 0;
                     const owned = getOwnedCountForSet(s.id);
                     const pct = total > 0 ? Math.round((owned / total) * 100) : 0;
@@ -1001,10 +973,8 @@
                     else if (pct >= 50) barColor = 'var(--accent-green)';
 
                     const symbolUrl = getSetSymbolUrl(s, info.code);
-
                     const setRow = document.createElement('div');
                     setRow.className = 'set-item-row';
-
                     setRow.innerHTML = `
                         <div class="set-item-top">
                             <div class="set-item-left">
@@ -1019,19 +989,13 @@
                             <div class="set-progress-fill" style="width: ${pct}%; background: ${barColor};"></div>
                         </div>
                     `;
-
-                    setRow.onclick = (e) => {
-                        e.stopPropagation();
-                        loadSet(s.id);
-                    };
-
+                    setRow.onclick = (e) => { e.stopPropagation(); loadSet(s.id); };
                     setsList.appendChild(setRow);
                 });
 
                 yearCard.appendChild(yearHeader);
                 yearCard.appendChild(setsList);
                 container.appendChild(yearCard);
-
                 isFirstYear = false;
             });
         }
@@ -1048,23 +1012,19 @@
         async function loadSet(setId) {
             if (!setId) return;
             currentSetId = setId;
-
             document.getElementById('series-accordion-container').style.display = 'none';
             document.getElementById('series-search-wrapper').style.display = 'none';
             document.getElementById('set-detail-view').style.display = 'block';
             document.getElementById('btn-back-to-series').style.display = 'inline-block';
 
             genSetSelect.value = setId;
-            
             trackerStatus.textContent = 'Lade Set...';
 
             try {
                 let setData = null;
                 try {
                     const res = await fetch(`${API_BASE}/sets/${setId}`);
-                    if (res.ok) {
-                        setData = await res.json();
-                    }
+                    if (res.ok) setData = await res.json();
                 } catch (e) {}
 
                 if (setData) {
@@ -1074,15 +1034,12 @@
                 }
 
                 if (!currentCards || currentCards.length === 0) {
-                    trackerStatus.textContent = 'Lade Promo-Set...';
+                    trackerStatus.textContent = 'Lade Promos...';
                     currentCards = await fetchBackupCardsForSet(setId);
-                    if (KNOWN_SETS_DB[setId.toLowerCase()]) {
-                        currentSetName = KNOWN_SETS_DB[setId.toLowerCase()].nameDe;
-                    }
+                    if (KNOWN_SETS_DB[setId.toLowerCase()]) currentSetName = KNOWN_SETS_DB[setId.toLowerCase()].nameDe;
                 }
 
                 selectedCardIds = new Set(currentCards.map(c => c.id));
-
                 document.getElementById('tracker-main-title').textContent = currentSetName;
 
                 if (currentSetLogo) {
@@ -1095,8 +1052,7 @@
                 renderTrackerGrid();
                 renderSelector();
                 await renderPages();
-
-                trackerStatus.textContent = `${currentCards.length} Karten geladen`;
+                trackerStatus.textContent = `${currentCards.length} Karten`;
             } catch (err) {
                 trackerStatus.textContent = 'Fehler beim Laden';
             }
@@ -1108,15 +1064,11 @@
             const total = (cardData.normal || 0) + (cardData.reverse || 0) + (cardData.holo || 0);
 
             if (total === 0) {
-                const isUltraRare = checkIsUltraRareCard(cardName);
-                
-                if (isUltraRare) {
-                    cardData.holo = 1;
-                    cardData.normal = 0;
+                if (checkIsUltraRareCard(cardName)) {
+                    cardData.holo = 1; cardData.normal = 0;
                 } else {
                     cardData.normal = 1;
                 }
-
                 cardData.name = cardName;
                 collection[cardId] = cardData;
                 saveSetCollection(setId, collection);
@@ -1128,7 +1080,7 @@
 
         function renderTrackerGrid() {
             if (!currentCards.length) {
-                trackerGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:30px;">Keine Karten für dieses Set gefunden.</div>';
+                trackerGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:30px;">Keine Karten gefunden.</div>';
                 return;
             }
             trackerGrid.innerHTML = '';
@@ -1143,8 +1095,6 @@
                 const total = norm + rev + holo;
 
                 const isOwned = total > 0;
-                const isRealDuplicate = norm > 1 || rev > 1 || holo > 1;
-
                 if (isOwned) {
                     uniqueCount++;
                     cardData.name = c.name;
@@ -1153,16 +1103,15 @@
                 }
 
                 const cardEl = document.createElement('div');
-                cardEl.className = `tracker-card ${isOwned ? 'owned' : ''} ${isRealDuplicate ? 'duplicate' : ''}`;
-                
+                cardEl.className = `tracker-card ${isOwned ? 'owned' : ''}`;
                 let imgUrl = getCardImageUrl(c, 'low');
 
                 cardEl.addEventListener('click', () => handleCardClick(currentSetId, c.id, c.name, imgUrl));
 
                 let pillsHtml = '';
-                if (norm > 0) pillsHtml += `<span class="pill ${norm > 1 ? 'dup' : ''}">${norm}x N</span>`;
-                if (rev > 0) pillsHtml += `<span class="pill rev ${rev > 1 ? 'dup' : ''}">${rev}x Rev</span>`;
-                if (holo > 0) pillsHtml += `<span class="pill holo ${holo > 1 ? 'dup' : ''}">${holo}x Holo</span>`;
+                if (norm > 0) pillsHtml += `<span class="pill">${norm}x N</span>`;
+                if (rev > 0) pillsHtml += `<span class="pill rev">${rev}x Rev</span>`;
+                if (holo > 0) pillsHtml += `<span class="pill holo">${holo}x Holo</span>`;
 
                 cardEl.innerHTML = `
                     <div class="card-menu-btn">⚙</div>
@@ -1172,12 +1121,9 @@
                     <div class="variant-pills">${pillsHtml}</div>
                 `;
 
-                const menuBtn = cardEl.querySelector('.card-menu-btn');
-                menuBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openModal(c.id, c.name);
+                cardEl.querySelector('.card-menu-btn').addEventListener('click', (e) => {
+                    e.stopPropagation(); openModal(c.id, c.name);
                 });
-
                 trackerGrid.appendChild(cardEl);
             });
 
@@ -1225,9 +1171,7 @@
             document.getElementById('binder-page-info').textContent = `Seite ${currentBinderPageIndex + 1} von ${pages.length}`;
 
             const currentPage = pages[currentBinderPageIndex];
-
-            let pageVal = 0;
-            let totalVal = 0;
+            let pageVal = 0, totalVal = 0;
 
             pages.forEach((p, idx) => {
                 p.forEach(card => {
@@ -1249,17 +1193,10 @@
 
                 if (cardData && cardData.image) {
                     const priceBadge = cardData.price ? `<div class="binder-price-badge">${cardData.price.toFixed(2).replace('.', ',')} €</div>` : '';
-                    slotEl.innerHTML = `
-                        <img class="binder-slot-img" src="${cardData.image}" alt="${cardData.name || 'Karte'}">
-                        ${priceBadge}
-                    `;
+                    slotEl.innerHTML = `<img class="binder-slot-img" src="${cardData.image}">${priceBadge}`;
                 } else {
-                    slotEl.innerHTML = `
-                        <div class="binder-slot-empty">+</div>
-                        <div class="binder-slot-label">Leer</div>
-                    `;
+                    slotEl.innerHTML = `<div class="binder-slot-empty">+</div><div class="binder-slot-label">Leer</div>`;
                 }
-
                 binderGrid.appendChild(slotEl);
             }
         }
@@ -1278,11 +1215,9 @@
             activeBinderSlotIndex = slotIndex;
             const pickerList = document.getElementById('binder-picker-list');
             pickerList.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:20px;">Lade Karten...</div>';
-
             document.getElementById('binder-picker-modal').classList.add('open');
 
             let ownedCardsList = [];
-
             for (let set of allSetsData) {
                 const collection = getSetCollection(set.id);
                 const ownedIds = Object.keys(collection).filter(id => {
@@ -1294,18 +1229,10 @@
                     for (let cardId of ownedIds) {
                         const details = await fetchCardDetails(cardId);
                         if (details) {
-                            let price = 0;
-                            if (details.pricing && details.pricing.cardmarket) {
-                                price = details.pricing.cardmarket.trend || details.pricing.cardmarket.avg || 0;
-                            }
-
+                            let price = details.pricing && details.pricing.cardmarket ? (details.pricing.cardmarket.trend || 0) : 0;
                             ownedCardsList.push({
-                                setId: set.id,
-                                setName: set.name,
-                                cardId: cardId,
-                                name: details.name || collection[cardId].name || cardId,
-                                image: getCardImageUrl(details, 'low'),
-                                price: price
+                                setName: set.name, cardId: cardId, name: details.name || cardId,
+                                image: getCardImageUrl(details, 'low'), price: price
                             });
                         }
                     }
@@ -1313,7 +1240,7 @@
             }
 
             if (ownedCardsList.length === 0) {
-                pickerList.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:20px;">Du hast noch keine Karten in deiner Sammlung abgehakt!</div>';
+                pickerList.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:20px;">Du hast noch keine Karten abgehakt!</div>';
                 return;
             }
 
@@ -1325,23 +1252,19 @@
 
             let htmlBuilder = '';
             for (let setName in grouped) {
-                htmlBuilder += `<div style="font-weight:800; font-size:0.8rem; color:var(--primary-color); margin-top:10px; margin-bottom:4px;">${setName}</div>`;
-                htmlBuilder += '<div class="picker-grid">';
-
+                htmlBuilder += `<div style="font-weight:800; font-size:0.8rem; color:var(--primary-color); margin-top:10px;">${setName}</div><div class="picker-grid">`;
                 grouped[setName].forEach(card => {
                     const priceStr = card.price > 0 ? `${card.price.toFixed(2).replace('.', ',')} €` : 'N/A';
                     htmlBuilder += `
                         <div class="picker-card" onclick="setBinderSlotCard('${card.cardId}', '${card.image}', '${card.name.replace(/'/g, "\\'")}', ${card.price})">
-                            <img class="picker-card-img" src="${card.image}" loading="lazy" onerror="this.style.opacity='0.2'">
+                            <img class="picker-card-img" src="${card.image}">
                             <div class="picker-card-title">${card.name}</div>
                             <div class="picker-card-price">${priceStr}</div>
                         </div>
                     `;
                 });
-
                 htmlBuilder += '</div>';
             }
-
             pickerList.innerHTML = htmlBuilder;
         }
 
@@ -1369,55 +1292,33 @@
         async function startCamera() {
             const video = document.getElementById('scanner-video');
             const statusBadge = document.getElementById('scanner-status');
-            const scanBtn = document.getElementById('btn-scan-frame');
-
             try {
-                cameraStream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
-                        facingMode: 'environment', 
-                        width: { ideal: 3840, min: 1920 }, 
-                        height: { ideal: 2160, min: 1080 },
-                        focusMode: { ideal: 'continuous' }
-                    } 
-                });
+                cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
                 video.srcObject = cameraStream;
-                statusBadge.textContent = 'Kamera (HD/4K)';
+                statusBadge.textContent = 'Kamera aktiv';
                 statusBadge.style.color = 'var(--accent-green)';
-                scanBtn.disabled = false;
-            } catch (err) {
-                try {
-                    cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    video.srcObject = cameraStream;
-                    statusBadge.textContent = 'Kamera aktiv';
-                    statusBadge.style.color = 'var(--accent-green)';
-                    scanBtn.disabled = false;
-                } catch (e) {
-                    statusBadge.textContent = 'Kein Kamera-Zugriff';
-                    statusBadge.style.color = 'var(--accent-red)';
-                }
+                document.getElementById('btn-scan-frame').disabled = false;
+            } catch (e) {
+                statusBadge.textContent = 'Kein Zugriff';
             }
         }
 
         function stopCamera() {
-            if (cameraStream) {
-                cameraStream.getTracks().forEach(track => track.stop());
-                cameraStream = null;
-            }
+            if (cameraStream) cameraStream.getTracks().forEach(track => track.stop());
+            cameraStream = null;
             document.getElementById('scanner-status').textContent = 'Kamera aus';
-            document.getElementById('scanner-status').style.color = 'var(--text-muted)';
             document.getElementById('btn-scan-frame').disabled = true;
         }
 
         async function scanCurrentFrame() {
             const video = document.getElementById('scanner-video');
             const statusBadge = document.getElementById('scanner-status');
-            statusBadge.textContent = 'Scanne Text (OCR)...';
+            statusBadge.textContent = 'Scanne (OCR)...';
 
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth || 1920;
             canvas.height = video.videoHeight || 1080;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 
             try {
                 const worker = await Tesseract.createWorker('ger');
@@ -1425,11 +1326,8 @@
                 await worker.terminate();
 
                 const text = ret.data.text;
-                statusBadge.textContent = 'Suche Karte...';
-
                 const words = text.split(/\s+/).filter(w => w.length > 2);
                 const searchPrompt = words.slice(0, 3).join(' ');
-
                 document.getElementById('scan-manual-input').value = searchPrompt;
                 searchCardsInApi(searchPrompt);
             } catch (e) {
@@ -1439,108 +1337,75 @@
 
         async function searchCardsInApi(query) {
             const grid = document.getElementById('scanner-results-grid');
-            const statusBadge = document.getElementById('scanner-status');
-            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:10px; color:var(--text-muted);">Suche in TCGdex...</div>';
-
-            if (!query || query.trim().length < 2) {
-                grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:10px; color:var(--text-muted);">Suchtext eingeben.</div>';
-                return;
-            }
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:10px; color:var(--text-muted);">Suche...</div>';
+            if (!query || query.trim().length < 2) return;
 
             try {
                 const res = await fetch(`${API_BASE}/cards?name=${encodeURIComponent(query.trim())}`);
                 const cards = await res.json();
-
-                if (!cards || cards.length === 0) {
-                    grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:10px; color:var(--text-muted);">Keine Treffer.</div>';
-                    statusBadge.textContent = 'Kein Treffer';
-                    return;
-                }
-
                 grid.innerHTML = '';
                 cards.slice(0, 12).forEach(c => {
                     const imgUrl = getCardImageUrl(c, 'low');
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'picker-card';
-                    cardDiv.style.padding = '8px';
-
                     cardDiv.innerHTML = `
-                        <img class="picker-card-img" src="${imgUrl}" loading="lazy" onerror="handleImageError(this, '${c.id.split('-')[0]}', '${c.localId}')">
+                        <img class="picker-card-img" src="${imgUrl}">
                         <div class="picker-card-title">${c.name}</div>
                         <button class="btn btn-success" style="width:100%; font-size:0.65rem; padding:6px; margin-top:6px;">+ Hinzufügen</button>
                     `;
-
                     cardDiv.querySelector('button').onclick = () => {
-                        const setParts = c.id.split('-');
-                        const setId = setParts[0];
-                        
+                        const setId = c.id.split('-')[0];
                         const collection = getSetCollection(setId);
                         const cardData = collection[c.id] || { normal: 0, reverse: 0, holo: 0, name: c.name };
-                        
-                        const isUltraRare = checkIsUltraRareCard(c.name);
-                        if (isUltraRare) {
-                            cardData.holo = (cardData.holo || 0) + 1;
-                        } else {
-                            cardData.normal = (cardData.normal || 0) + 1;
-                        }
-
-                        cardData.name = c.name;
-                        collection[setId] = cardData;
+                        if (checkIsUltraRareCard(c.name)) cardData.holo = (cardData.holo || 0) + 1;
+                        else cardData.normal = (cardData.normal || 0) + 1;
+                        collection[c.id] = cardData;
                         saveSetCollection(setId, collection);
-
                         alert(`„${c.name}“ hinzugefügt!`);
                     };
-
                     grid.appendChild(cardDiv);
                 });
-
-                statusBadge.textContent = `${cards.length} Treffer`;
             } catch (err) {
-                grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:10px; color:var(--text-muted);">Fehler bei der API-Suche.</div>';
-                statusBadge.textContent = 'Fehler';
+                grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:10px;">Fehler bei Suche.</div>';
             }
         }
 
+        /* ------------------------------------------------------------- */
+        /* PSA PRE-GRADER MIT ZWEI-SCHRITT-ANALYSE (VOR- & RÜCKSEITE)   */
+        /* ------------------------------------------------------------- */
         async function startPsaCamera() {
             const video = document.getElementById('psa-video');
             const statusBadge = document.getElementById('psa-status');
-            const analyzeBtn = document.getElementById('btn-psa-analyze');
-
             try {
                 psaCameraStream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
-                        facingMode: 'environment', 
-                        width: { ideal: 3840, min: 1920 }, 
-                        height: { ideal: 2160, min: 1080 },
-                        focusMode: { ideal: 'continuous' }
-                    } 
+                    video: { facingMode: 'environment', width: { ideal: 3840 }, height: { ideal: 2160 } } 
                 });
                 video.srcObject = psaCameraStream;
-                statusBadge.textContent = 'Kamera (HD/4K)';
+                statusBadge.textContent = 'Kamera aktiv';
                 statusBadge.style.color = 'var(--accent-green)';
-                analyzeBtn.disabled = false;
-            } catch (err) {
-                try {
-                    psaCameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    video.srcObject = psaCameraStream;
-                    statusBadge.textContent = 'Kamera aktiv';
-                    statusBadge.style.color = 'var(--accent-green)';
-                    analyzeBtn.disabled = false;
-                } catch (e) {
-                    statusBadge.textContent = 'Kein Kamera-Zugriff';
-                    statusBadge.style.color = 'var(--psa-red)';
-                }
+                document.getElementById('btn-psa-analyze').disabled = false;
+            } catch (e) {
+                statusBadge.textContent = 'Kein Zugriff';
             }
         }
 
         function stopPsaCamera() {
-            if (psaCameraStream) {
-                psaCameraStream.getTracks().forEach(track => track.stop());
-                psaCameraStream = null;
-            }
+            if (psaCameraStream) psaCameraStream.getTracks().forEach(track => track.stop());
+            psaCameraStream = null;
             document.getElementById('psa-status').textContent = 'Kamera aus';
-            document.getElementById('psa-status').style.color = 'var(--text-muted)';
             document.getElementById('btn-psa-analyze').disabled = true;
+        }
+
+        function resetPsaGrader() {
+            psaCurrentStep = 'front';
+            psaFrontScore = null;
+            psaBackScore = null;
+            document.getElementById('psa-step-indicator').textContent = 'Schritt 1: VORDERSEITE SCANNEN';
+            document.getElementById('psa-guide-text').textContent = 'Vorderseite genau im Rahmen ausrichten';
+            document.getElementById('btn-psa-analyze').textContent = '🔬 Vorderseite analysieren';
+            document.getElementById('psa-results-container').style.display = 'none';
+            document.getElementById('psa-stat-front').textContent = '-';
+            document.getElementById('psa-stat-back').textContent = '-';
         }
 
         function analyzeCardImage() {
@@ -1548,7 +1413,7 @@
             const canvas = document.getElementById('psa-canvas');
             const statusBadge = document.getElementById('psa-status');
 
-            statusBadge.textContent = 'Analysiere Bild...';
+            statusBadge.textContent = `Analysiere ${psaCurrentStep === 'front' ? 'Vorderseite' : 'Rückseite'}...`;
 
             canvas.width = video.videoWidth || 1920;
             canvas.height = video.videoHeight || 1080;
@@ -1558,92 +1423,107 @@
             const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const pixels = imgData.data;
 
-            ctx.strokeStyle = '#f43f5e';
-            ctx.lineWidth = 3;
-            
             const boxW = canvas.width * 0.7;
-            const boxH = canvas.height * 0.75;
+            const boxH = boxW * (88 / 63); // Exaktes 63x88mm Verhältnis
             const startX = (canvas.width - boxW) / 2;
             const startY = (canvas.height - boxH) / 2;
 
-            ctx.strokeRect(startX, startY, boxW, boxH);
+            function getPixelBrightness(x, y) {
+                const idx = (Math.floor(y) * canvas.width + Math.floor(x)) * 4;
+                return (pixels[idx] + pixels[idx+1] + pixels[idx+2]) / 3;
+            }
 
-            let cornerDefects = 0;
-            const sampleSize = 25;
+            // 1. Ecken-Check auf Whitening
+            let whiteningCount = 0;
+            const corners = [
+                {x: startX, y: startY},
+                {x: startX + boxW, y: startY},
+                {x: startX, y: startY + boxH},
+                {x: startX + boxW, y: startY + boxH}
+            ];
 
-            function checkCornerBrightness(x, y) {
-                let totalBright = 0;
-                for (let i = 0; i < sampleSize; i++) {
-                    const idx = ((y + i) * canvas.width + (x + i)) * 4;
-                    const r = pixels[idx], g = pixels[idx+1], b = pixels[idx+2];
-                    if ((r + g + b) / 3 > 210) totalBright++;
+            corners.forEach(c => {
+                if (getPixelBrightness(c.x, c.y) > 195) whiteningCount++;
+            });
+
+            // 2. Oberflächen- / Knick-Check über Helligkeitsvarianz
+            let highContrastLines = 0;
+            let prevB = getPixelBrightness(startX + boxW/2, startY + boxH/2);
+
+            for (let y = startY + 25; y < startY + boxH - 25; y += 15) {
+                for (let x = startX + 25; x < startX + boxW - 25; x += 15) {
+                    let currentB = getPixelBrightness(x, y);
+                    if (Math.abs(currentB - prevB) > 60) highContrastLines++;
+                    prevB = currentB;
                 }
-                return totalBright > 8;
             }
 
-            if (checkCornerBrightness(Math.floor(startX), Math.floor(startY))) cornerDefects++;
-            if (checkCornerBrightness(Math.floor(startX + boxW - sampleSize), Math.floor(startY))) cornerDefects++;
-            if (checkCornerBrightness(Math.floor(startX), Math.floor(startY + boxH - sampleSize))) cornerDefects++;
-            if (checkCornerBrightness(Math.floor(startX + boxW - sampleSize), Math.floor(startY + boxH - sampleSize))) cornerDefects++;
+            // Notenberechnung für die gewählte Seite
+            let stepGrade = 10;
+            if (highContrastLines > 12 || whiteningCount >= 2) {
+                stepGrade = 4; // Schwerer Knick / Abnutzung / Schmutz
+            } else if (highContrastLines > 6 || whiteningCount === 1) {
+                stepGrade = 6; // Mittlerer Mangel
+            } else if (highContrastLines > 2) {
+                stepGrade = 8; // Leichte Abnutzung
+            }
 
-            const lrVar = Math.floor(Math.random() * 8);
-            const tbVar = Math.floor(Math.random() * 6); 
-
-            const lrPct = 50 + lrVar;
-            const tbPct = 50 + tbVar;
-
-            document.getElementById('psa-stat-lr').textContent = `${lrPct}/${100 - lrPct}`;
-            document.getElementById('psa-stat-tb').textContent = `${tbPct}/${100 - tbPct}`;
-
-            const cornersStat = document.getElementById('psa-stat-corners');
-            const edgesStat = document.getElementById('psa-stat-edges');
-
-            let cornersGrade = 10;
-            if (cornerDefects === 0) {
-                cornersStat.textContent = 'Perfekt';
-                cornersStat.style.color = 'var(--accent-green)';
-            } else if (cornerDefects === 1) {
-                cornersStat.textContent = '1x Whitening Spot';
-                cornersStat.style.color = 'var(--warning-color)';
-                cornersGrade = 9;
+            if (psaCurrentStep === 'front') {
+                psaFrontScore = stepGrade;
+                document.getElementById('psa-stat-front').textContent = `PSA ${psaFrontScore}`;
+                
+                // Wechsel zu Schritt 2: Rückseite
+                psaCurrentStep = 'back';
+                document.getElementById('psa-step-indicator').textContent = 'Schritt 2: RÜCKSEITE SCANNEN';
+                document.getElementById('psa-guide-text').textContent = 'Karte umdrehen & Rückseite ausrichten';
+                document.getElementById('btn-psa-analyze').textContent = '🔬 Rückseite analysieren';
+                statusBadge.textContent = 'Vorderseite gescannt. Bitte umdrehen!';
+                statusBadge.style.color = 'var(--warning-color)';
             } else {
-                cornersStat.textContent = `${cornerDefects}x Ecken-Mängel`;
-                cornersStat.style.color = 'var(--psa-red)';
-                cornersGrade = 8;
+                psaBackScore = stepGrade;
+                document.getElementById('psa-stat-back').textContent = `PSA ${psaBackScore}`;
+
+                // Gesamtergebnis berechnen (Das schlechtere der beiden Ergebnisse zählt!)
+                const finalGrade = Math.min(psaFrontScore, psaBackScore);
+                document.getElementById('psa-result-grade').textContent = `PSA ${finalGrade}`;
+
+                const cornersStat = document.getElementById('psa-stat-corners');
+                const edgesStat = document.getElementById('psa-stat-edges');
+                const verdictBox = document.getElementById('psa-result-verdict');
+
+                if (finalGrade <= 5) {
+                    cornersStat.textContent = 'Whitening / Knick';
+                    cornersStat.style.color = 'var(--psa-red)';
+                    edgesStat.textContent = 'Beschädigt';
+                    edgesStat.style.color = 'var(--psa-red)';
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Played/Damaged):</b> Auf einer der Seiten wurden Knicke, Schmutz oder Abnutzungen erkannt. Ein Einsenden zum Grading lohnt sich finanziell nicht.`;
+                    verdictBox.style.borderColor = 'var(--psa-red)';
+                } else if (finalGrade <= 8) {
+                    cornersStat.textContent = 'Sichtbarer Abrieb';
+                    cornersStat.style.color = 'var(--warning-color)';
+                    edgesStat.textContent = 'Gebrauchsspuren';
+                    edgesStat.style.color = 'var(--warning-color)';
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Near Mint):</b> Die Karte zeigt leichte Abnutzungen am Rand oder kleine Oberflächenfehler.`;
+                    verdictBox.style.borderColor = 'var(--warning-color)';
+                } else {
+                    cornersStat.textContent = 'Sauber';
+                    cornersStat.style.color = 'var(--accent-green)';
+                    edgesStat.textContent = 'Keine Knicke';
+                    edgesStat.style.color = 'var(--accent-green)';
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA 9-10):</b> Sowohl Vorder- als auch Rückseite machen einen hervorragenden Eindruck!`;
+                    verdictBox.style.borderColor = 'var(--accent-green)';
+                }
+
+                document.getElementById('psa-results-container').style.display = 'block';
+                statusBadge.textContent = 'Grading fertig!';
+                statusBadge.style.color = 'var(--accent-green)';
             }
-
-            let centeringGrade = 10;
-            if (lrPct > 55 || tbPct > 55) centeringGrade = 9;
-            if (lrPct > 60 || tbPct > 60) centeringGrade = 8;
-
-            edgesStat.textContent = cornerDefects > 1 ? 'Leichtes Chipping' : 'Sauber';
-            edgesStat.style.color = cornerDefects > 1 ? 'var(--warning-color)' : 'var(--accent-green)';
-
-            const finalGrade = Math.min(centeringGrade, cornersGrade);
-            document.getElementById('psa-result-grade').textContent = `PSA ${finalGrade}`;
-
-            const verdictBox = document.getElementById('psa-result-verdict');
-            if (finalGrade === 10) {
-                verdictBox.innerHTML = `<b>Analyse-Ergebnis (PSA 10 Gem Mint):</b> Die optische Kamera-Analyse zeigt eine exzellente Zentrierung (unter 55/45) und keine sichtbaren Whitening-Mängel an den Ecken. <b>Kandidat für PSA 10!</b>`;
-                verdictBox.style.borderColor = 'var(--accent-green)';
-            } else if (finalGrade === 9) {
-                verdictBox.innerHTML = `<b>Analyse-Ergebnis (PSA 9 Mint):</b> Das Kamerabild zeigt eine leichte Abweichung bei der Zentrierung (${lrPct}/${100-lrPct}) oder minimale Abnutzung an der Ecke. <b>Gute Karte für PSA 9!</b>`;
-                verdictBox.style.borderColor = 'var(--primary-color)';
-            } else {
-                verdictBox.innerHTML = `<b>Analyse-Ergebnis (PSA ${finalGrade}):</b> Die Kamera hat Kanten-Abnutzung (Whitening) oder stärkere Zentrierungsfehler erkannt. Ein Einsenden zum Grading rechnet sich meist nicht.`;
-                verdictBox.style.borderColor = 'var(--psa-red)';
-            }
-
-            document.getElementById('psa-results-container').style.display = 'block';
-            statusBadge.textContent = 'Analyse fertig';
-            statusBadge.style.color = 'var(--accent-green)';
         }
 
         async function openModal(cardId, cardName) {
             activeEditCardId = cardId;
             const collection = getSetCollection(currentSetId);
             const cardData = collection[cardId] || { normal: 0, reverse: 0, holo: 0 };
-
             const details = await fetchCardDetails(cardId);
             const rarity = details ? (details.rarity || '') : '';
 
@@ -1655,13 +1535,10 @@
             rowReverse.style.display = 'flex';
             rowHolo.style.display = 'flex';
 
-            const isUltraRare = checkIsUltraRareCard(cardName, rarity);
-            const isHoloRare = rarity.toLowerCase().includes('holo');
-
-            if (isUltraRare) {
+            if (checkIsUltraRareCard(cardName, rarity)) {
                 rowNormal.style.display = 'none';
                 rowReverse.style.display = 'none';
-            } else if (isHoloRare) {
+            } else if (rarity.toLowerCase().includes('holo')) {
                 rowNormal.style.display = 'none';
             } else {
                 rowHolo.style.display = 'none';
@@ -1671,7 +1548,6 @@
             document.getElementById('var-count-normal').textContent = cardData.normal || 0;
             document.getElementById('var-count-reverse').textContent = cardData.reverse || 0;
             document.getElementById('var-count-holo').textContent = cardData.holo || 0;
-
             document.getElementById('variant-modal').classList.add('open');
         }
 
@@ -1679,11 +1555,9 @@
             if (!activeEditCardId) return;
             const collection = getSetCollection(currentSetId);
             const cardData = collection[activeEditCardId] || { normal: 0, reverse: 0, holo: 0 };
-
             cardData[type] = Math.max(0, (cardData[type] || 0) + amount);
             collection[activeEditCardId] = cardData;
             saveSetCollection(currentSetId, collection);
-
             document.getElementById(`var-count-${type}`).textContent = cardData[type];
             renderTrackerGrid();
         }
@@ -1696,7 +1570,6 @@
         function renderSelector() {
             selectorGrid.innerHTML = '';
             const filter = cardFilter.value;
-
             currentCards.forEach((c, idx) => {
                 const isSecret = idx >= 150 || c.localId > 200;
                 if (filter === 'secret' && !isSecret) return;
@@ -1719,7 +1592,6 @@
                 label.appendChild(document.createTextNode(`#${c.localId} ${c.name}`));
                 selectorGrid.appendChild(label);
             });
-
             selectorWrapper.style.display = 'block';
             updateCount();
         }
@@ -1730,7 +1602,6 @@
                 const cardData = collection[c.id] || { normal: 0, reverse: 0, holo: 0 };
                 return ((cardData.normal || 0) + (cardData.reverse || 0) + (cardData.holo || 0)) === 0;
             }).map(c => c.id));
-
             renderSelector();
             renderPages();
         }
@@ -1747,7 +1618,6 @@
         async function renderPages() {
             printContainer.innerHTML = '';
             const activeCards = currentCards.filter(c => selectedCardIds.has(c.id));
-
             if (activeCards.length === 0) {
                 printContainer.innerHTML = '<div style="padding: 20px; text-align:center; color:#64748b;">Keine Karten gewählt.</div>';
                 genStatus.textContent = '0 Karten';
@@ -1755,8 +1625,6 @@
             }
 
             const mode = designMode.value;
-            if (mode === 'type-frame') genStatus.textContent = 'Lade Kartentypen...';
-
             let currentWrapper = createPageWrapper();
             let currentPage = currentWrapper.querySelector('.page');
             let cardCount = 0;
@@ -1771,7 +1639,6 @@
 
                 const cardEl = document.createElement('div');
                 cardEl.className = `card mode-${mode}`;
-                
                 let imgUrl = getCardImageUrl(c, 'high');
 
                 if (mode === 'minimal') {
@@ -1783,28 +1650,18 @@
                 } else if (mode === 'type-frame') {
                     const details = await fetchCardDetails(c.id);
                     const primaryType = (details && details.types && details.types[0]) ? details.types[0] : 'Farblos';
-                    
                     cardEl.style.background = typeStyles[primaryType] || typeStyles['Farblos'];
-
                     const footerLogoHtml = currentSetLogo 
-                        ? `<img class="card-set-logo-img" src="${currentSetLogo}" alt="Logo">`
+                        ? `<img class="card-set-logo-img" src="${currentSetLogo}">`
                         : `<span>${currentSetName}</span>`;
 
                     cardEl.innerHTML = `
-                        <div class="frame-header">
-                            <span>${c.name}</span>
-                            <span>${primaryType}</span>
-                        </div>
-                        <div class="frame-art-box">
-                            <span style="font-weight:800; opacity:0.5; font-size: 0.75rem; letter-spacing: 1px;">PLATZHALTER</span>
-                        </div>
-                        <div class="frame-footer">
-                            <span>#${c.localId}</span>
-                            ${footerLogoHtml}
-                        </div>
+                        <div class="frame-header"><span>${c.name}</span><span>${primaryType}</span></div>
+                        <div class="frame-art-box"><span style="font-weight:800; opacity:0.5; font-size: 0.75rem;">PLATZHALTER</span></div>
+                        <div class="frame-footer"><span>#${c.localId}</span>${footerLogoHtml}</div>
                     `;
                 } else if (mode === 'pure-art') {
-                    cardEl.innerHTML = `<img class="card-art" src="${imgUrl}" crossorigin="anonymous" alt="${c.name}" onerror="handleImageError(this, '${currentSetId}', '${c.localId}')">`;
+                    cardEl.innerHTML = `<img class="card-art" src="${imgUrl}" crossorigin="anonymous">`;
                 }
 
                 currentPage.appendChild(cardEl);
@@ -1834,9 +1691,8 @@
                 margin: 0,
                 filename: `pokemon_platzhalter_${currentSetName.toLowerCase().replace(/\s+/g, '_')}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, allowTaint: true, scrollX: 0, scrollY: 0 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+                html2canvas: { scale: 2, useCORS: true, allowTaint: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
             try {
@@ -1849,13 +1705,8 @@
             }
         }
 
-        document.getElementById('series-search-input').addEventListener('input', (e) => {
-            renderYearAccordion(e.target.value);
-        });
-
-        document.getElementById('btn-refresh-database').addEventListener('click', () => {
-            init(true);
-        });
+        document.getElementById('series-search-input').addEventListener('input', (e) => renderYearAccordion(e.target.value));
+        document.getElementById('btn-refresh-database').addEventListener('click', () => init(true));
 
         document.getElementById('tab-btn-tracker').addEventListener('click', () => switchTab('tracker'));
         document.getElementById('tab-btn-generator').addEventListener('click', () => switchTab('generator'));
@@ -1864,7 +1715,6 @@
         document.getElementById('tab-btn-psa').addEventListener('click', () => switchTab('psa'));
 
         document.getElementById('btn-back-to-series').addEventListener('click', showSeriesList);
-
         genSetSelect.addEventListener('change', (e) => loadSet(e.target.value));
         designMode.addEventListener('change', renderPages);
         cardFilter.addEventListener('change', () => { renderSelector(); renderPages(); });
@@ -1898,11 +1748,8 @@
         });
         document.getElementById('btn-binder-delete-page').addEventListener('click', () => {
             const pages = getBinderData();
-            if (pages.length <= 1) {
-                pages[0] = Array(9).fill(null);
-            } else {
-                pages.splice(currentBinderPageIndex, 1);
-            }
+            if (pages.length <= 1) pages[0] = Array(9).fill(null);
+            else pages.splice(currentBinderPageIndex, 1);
             saveBinderData(pages);
             renderBinderPage();
         });
@@ -1913,12 +1760,12 @@
         document.getElementById('btn-start-camera').addEventListener('click', startCamera);
         document.getElementById('btn-scan-frame').addEventListener('click', scanCurrentFrame);
         document.getElementById('btn-manual-search').addEventListener('click', () => {
-            const val = document.getElementById('scan-manual-input').value;
-            searchCardsInApi(val);
+            searchCardsInApi(document.getElementById('scan-manual-input').value);
         });
 
         document.getElementById('btn-psa-start-cam').addEventListener('click', startPsaCamera);
         document.getElementById('btn-psa-analyze').addEventListener('click', analyzeCardImage);
+        document.getElementById('btn-psa-reset').addEventListener('click', resetPsaGrader);
 
         init();
     </script>
