@@ -263,48 +263,48 @@
         };
 
         const KNOWN_SETS_DB = {
-            'me05': { year: 2026, code: 'PBL', nameEn: 'Pitch Black', nameDe: 'Dunkelnacht', total: 180 },
-            'me04': { year: 2026, code: 'CRI', nameEn: 'Chaos Rising', nameDe: 'Wachsendes Chaos', total: 190 },
-            'me03': { year: 2026, code: 'POR', nameEn: 'Perfect Order', nameDe: 'Optimale Ordnung', total: 175 },
-            'me02': { year: 2026, code: 'ASC', nameEn: 'Ascended Heroes', nameDe: 'Erhabene Helden', total: 210 },
-            '30th': { year: 2026, code: '30C', nameEn: '30th Celebration', nameDe: '30 Jahre', total: 100 },
-            'me01': { year: 2025, code: 'MEG', nameEn: 'Mega Evolution', nameDe: 'Mega-Entwicklung', total: 200 },
-            'sv10.5b': { year: 2025, code: 'BLK', nameEn: 'Black Bolt', nameDe: 'Black Bolt', total: 160 },
-            'sv10.5w': { year: 2025, code: 'WHT', nameEn: 'White Flare', nameDe: 'White Flare', total: 160 },
-            'sv10': { year: 2025, code: 'DRI', nameEn: 'Destined Rivals', nameDe: 'Destined Rivals', total: 180 },
-            'sv09': { year: 2025, code: 'JTG', nameEn: 'Journey Together', nameDe: 'Journey Together', total: 190 },
-            'sv08.5': { year: 2025, code: 'PRE', nameEn: 'Prismatic Evolutions', nameDe: 'Prismatische Entwicklungen', total: 175 },
-            'sv08': { year: 2024, code: 'SSP', nameEn: 'Surging Sparks', nameDe: 'Stürmische Funken', total: 250 },
-            'sv07': { year: 2024, code: 'SCR', nameEn: 'Stellar Crown', nameDe: 'Stellarkrone', total: 170 },
-            'sv06.5': { year: 2024, code: 'SFA', nameEn: 'Shrouded Fable', nameDe: 'Nebel der Sagen', total: 95 },
-            'sv06': { year: 2024, code: 'TWM', nameEn: 'Twilight Masquerade', nameDe: 'Maskerade von Zwielicht', total: 220 },
-            'sv05': { year: 2024, code: 'TEF', nameEn: 'Temporal Forces', nameDe: 'Gewalten der Zeit', total: 218 },
-            'sv04.5': { year: 2024, code: 'PAF', nameEn: 'Paldean Fates', nameDe: 'Paldeas Schicksale', total: 240 },
-            'sv04': { year: 2023, code: 'PAR', nameEn: 'Paradox Rift', nameDe: 'Paradoxrift', total: 260 },
-            'sv03.5': { year: 2023, code: 'MEW', nameEn: '151', nameDe: '151', total: 207 },
-            'sv03': { year: 2023, code: 'OBF', nameEn: 'Obsidian Flames', nameDe: 'Obsidianflammen', total: 230 },
-            'sv02': { year: 2023, code: 'PAL', nameEn: 'Paldea Evolved', nameDe: 'Entwicklungen in Paldea', total: 279 },
-            'sv01': { year: 2023, code: 'SVI', nameEn: 'Scarlet & Violet', nameDe: 'Karmesin & Purpur', total: 258 },
-            'swsh12.5': { year: 2023, code: 'CRZ', nameEn: 'Crown Zenith', nameDe: 'Zenit der Könige', total: 230 },
-            'swsh12': { year: 2022, code: 'SIT', nameEn: 'Silver Tempest', nameDe: 'Silberne Sturmwolken', total: 245 },
-            'swsh11': { year: 2022, code: 'LOR', nameEn: 'Lost Origin', nameDe: 'Verlorener Ursprung', total: 247 },
-            'swsh10': { year: 2022, code: 'ASR', nameEn: 'Astral Radiance', nameDe: 'Astralglanz', total: 246 },
-            'swsh09': { year: 2022, code: 'BRS', nameEn: 'Brilliant Stars', nameDe: 'Strahlende Sterne', total: 216 },
-            'swsh08': { year: 2021, code: 'FST', nameEn: 'Fusion Strike', nameDe: 'Fusionsangriff', total: 284 },
-            'swsh07': { year: 2021, code: 'EVS', nameEn: 'Evolving Skies', nameDe: 'Drachenwandel', total: 237 },
-            'swsh06': { year: 2021, code: 'CRE', nameEn: 'Chilling Reign', nameDe: 'Schauerland', total: 233 },
-            'swsh05': { year: 2021, code: 'BST', nameEn: 'Battle Styles', nameDe: 'Kampfstile', total: 183 },
-            'swsh04.5': { year: 2021, code: 'SHF', nameEn: 'Shining Fates', nameDe: 'Glänzendes Schicksal', total: 195 },
-            'swsh04': { year: 2020, code: 'VIV', nameEn: 'Vivid Voltage', nameDe: 'Farbenschock', total: 203 },
-            'swsh03': { year: 2020, code: 'DAA', nameEn: 'Darkness Ablaze', nameDe: 'Flammende Finsternis', total: 201 },
-            'swsh01': { year: 2020, code: 'SSH', nameEn: 'Sword & Shield', nameDe: 'Schwert & Schild', total: 216 },
-            'sm12': { year: 2019, code: 'CEC', nameEn: 'Cosmic Eclipse', nameDe: 'Weltenwandel', total: 271 },
-            'sm11.5': { year: 2019, code: 'HIF', nameEn: 'Hidden Fates', nameDe: 'Verborgenes Schicksal', total: 163 },
-            'sm01': { year: 2017, code: 'SUM', nameEn: 'Sun & Moon', nameDe: 'Sonne & Mond', total: 163 },
-            'xy12': { year: 2016, code: 'EVO', nameEn: 'Evolutions', nameDe: 'Evolution', total: 113 },
-            'tr': { year: 2000, code: 'TR', nameEn: 'Team Rocket', nameDe: 'Team Rocket', total: 83 },
-            'ju': { year: 1999, code: 'JU', nameEn: 'Jungle', nameDe: 'Dschungel', total: 64 },
-            'base1': { year: 1999, code: 'BS', nameEn: 'Base Set', nameDe: 'Grundset', total: 102 }
+            '30th': { year: 2026, releaseDate: '2026-10-01', code: '30C', nameEn: '30th Celebration', nameDe: '30 Jahre Collection', total: 100 },
+            'me05': { year: 2026, releaseDate: '2026-08-01', code: 'PBL', nameEn: 'Pitch Black', nameDe: 'Dunkelnacht', total: 180 },
+            'me04': { year: 2026, releaseDate: '2026-05-01', code: 'CRI', nameEn: 'Chaos Rising', nameDe: 'Wachsendes Chaos', total: 190 },
+            'me03': { year: 2026, releaseDate: '2026-03-01', code: 'POR', nameEn: 'Perfect Order', nameDe: 'Optimale Ordnung', total: 175 },
+            'me02': { year: 2026, releaseDate: '2026-01-15', code: 'ASC', nameEn: 'Ascended Heroes', nameDe: 'Erhabene Helden', total: 210 },
+            'me01': { year: 2025, releaseDate: '2025-11-01', code: 'MEG', nameEn: 'Mega Evolution', nameDe: 'Mega-Entwicklung', total: 200 },
+            'sv10.5b': { year: 2025, releaseDate: '2025-08-15', code: 'BLK', nameEn: 'Black Bolt', nameDe: 'Black Bolt', total: 160 },
+            'sv10.5w': { year: 2025, releaseDate: '2025-08-15', code: 'WHT', nameEn: 'White Flare', nameDe: 'White Flare', total: 160 },
+            'sv10': { year: 2025, releaseDate: '2025-05-20', code: 'DRI', nameEn: 'Destined Rivals', nameDe: 'Destined Rivals', total: 180 },
+            'sv09': { year: 2025, releaseDate: '2025-03-28', code: 'JTG', nameEn: 'Journey Together', nameDe: 'Journey Together', total: 190 },
+            'sv08.5': { year: 2025, releaseDate: '2025-01-17', code: 'PRE', nameEn: 'Prismatic Evolutions', nameDe: 'Prismatische Entwicklungen', total: 175 },
+            'sv08': { year: 2024, releaseDate: '2024-11-08', code: 'SSP', nameEn: 'Surging Sparks', nameDe: 'Stürmische Funken', total: 250 },
+            'sv07': { year: 2024, releaseDate: '2024-09-13', code: 'SCR', nameEn: 'Stellar Crown', nameDe: 'Stellarkrone', total: 170 },
+            'sv06.5': { year: 2024, releaseDate: '2024-08-02', code: 'SFA', nameEn: 'Shrouded Fable', nameDe: 'Nebel der Sagen', total: 95 },
+            'sv06': { year: 2024, releaseDate: '2024-05-24', code: 'TWM', nameEn: 'Twilight Masquerade', nameDe: 'Maskerade von Zwielicht', total: 220 },
+            'sv05': { year: 2024, releaseDate: '2024-03-22', code: 'TEF', nameEn: 'Temporal Forces', nameDe: 'Gewalten der Zeit', total: 218 },
+            'sv04.5': { year: 2024, releaseDate: '2024-01-26', code: 'PAF', nameEn: 'Paldean Fates', nameDe: 'Paldeas Schicksale', total: 240 },
+            'sv04': { year: 2023, releaseDate: '2023-11-03', code: 'PAR', nameEn: 'Paradox Rift', nameDe: 'Paradoxrift', total: 260 },
+            'sv03.5': { year: 2023, releaseDate: '2023-09-22', code: 'MEW', nameEn: '151', nameDe: '151', total: 207 },
+            'sv03': { year: 2023, releaseDate: '2023-08-11', code: 'OBF', nameEn: 'Obsidian Flames', nameDe: 'Obsidianflammen', total: 230 },
+            'sv02': { year: 2023, releaseDate: '2023-06-09', code: 'PAL', nameEn: 'Paldea Evolved', nameDe: 'Entwicklungen in Paldea', total: 279 },
+            'sv01': { year: 2023, releaseDate: '2023-03-31', code: 'SVI', nameEn: 'Scarlet & Violet', nameDe: 'Karmesin & Purpur', total: 258 },
+            'swsh12.5': { year: 2023, releaseDate: '2023-01-20', code: 'CRZ', nameEn: 'Crown Zenith', nameDe: 'Zenit der Könige', total: 230 },
+            'swsh12': { year: 2022, releaseDate: '2022-11-11', code: 'SIT', nameEn: 'Silver Tempest', nameDe: 'Silberne Sturmwolken', total: 245 },
+            'swsh11': { year: 2022, releaseDate: '2022-09-09', code: 'LOR', nameEn: 'Lost Origin', nameDe: 'Verlorener Ursprung', total: 247 },
+            'swsh10': { year: 2022, releaseDate: '2022-05-27', code: 'ASR', nameEn: 'Astral Radiance', nameDe: 'Astralglanz', total: 246 },
+            'swsh09': { year: 2022, releaseDate: '2022-02-25', code: 'BRS', nameEn: 'Brilliant Stars', nameDe: 'Strahlende Sterne', total: 216 },
+            'swsh08': { year: 2021, releaseDate: '2021-11-12', code: 'FST', nameEn: 'Fusion Strike', nameDe: 'Fusionsangriff', total: 284 },
+            'swsh07': { year: 2021, releaseDate: '2021-08-27', code: 'EVS', nameEn: 'Evolving Skies', nameDe: 'Drachenwandel', total: 237 },
+            'swsh06': { year: 2021, releaseDate: '2021-06-18', code: 'CRE', nameEn: 'Chilling Reign', nameDe: 'Schauerland', total: 233 },
+            'swsh05': { year: 2021, releaseDate: '2021-03-19', code: 'BST', nameEn: 'Battle Styles', nameDe: 'Kampfstile', total: 183 },
+            'swsh04.5': { year: 2021, releaseDate: '2021-02-19', code: 'SHF', nameEn: 'Shining Fates', nameDe: 'Glänzendes Schicksal', total: 195 },
+            'swsh04': { year: 2020, releaseDate: '2020-11-13', code: 'VIV', nameEn: 'Vivid Voltage', nameDe: 'Farbenschock', total: 203 },
+            'swsh03': { year: 2020, releaseDate: '2020-08-14', code: 'DAA', nameEn: 'Darkness Ablaze', nameDe: 'Flammende Finsternis', total: 201 },
+            'swsh01': { year: 2020, releaseDate: '2020-02-07', code: 'SSH', nameEn: 'Sword & Shield', nameDe: 'Schwert & Schild', total: 216 },
+            'sm12': { year: 2019, releaseDate: '2019-11-01', code: 'CEC', nameEn: 'Cosmic Eclipse', nameDe: 'Weltenwandel', total: 271 },
+            'sm11.5': { year: 2019, releaseDate: '2019-08-23', code: 'HIF', nameEn: 'Hidden Fates', nameDe: 'Verborgenes Schicksal', total: 163 },
+            'sm01': { year: 2017, releaseDate: '2017-02-03', code: 'SUM', nameEn: 'Sun & Moon', nameDe: 'Sonne & Mond', total: 163 },
+            'xy12': { year: 2016, releaseDate: '2016-11-02', code: 'EVO', nameEn: 'Evolutions', nameDe: 'Evolution', total: 113 },
+            'tr': { year: 2000, releaseDate: '2000-04-24', code: 'TR', nameEn: 'Team Rocket', nameDe: 'Team Rocket', total: 83 },
+            'ju': { year: 1999, releaseDate: '1999-06-16', code: 'JU', nameEn: 'Jungle', nameDe: 'Dschungel', total: 64 },
+            'base1': { year: 1999, releaseDate: '1999-01-09', code: 'BS', nameEn: 'Base Set', nameDe: 'Grundset', total: 102 }
         };
 
         const trackerStatus = document.getElementById('tracker-status');
@@ -375,7 +375,10 @@
 
                 if (!fetchedSets || fetchedSets.length === 0) {
                     allSetsData = Object.keys(KNOWN_SETS_DB).map(id => ({
-                        id: id, name: KNOWN_SETS_DB[id].nameDe, cardCount: { official: KNOWN_SETS_DB[id].total, total: KNOWN_SETS_DB[id].total }
+                        id: id, 
+                        name: KNOWN_SETS_DB[id].nameDe, 
+                        releaseDate: KNOWN_SETS_DB[id].releaseDate,
+                        cardCount: { official: KNOWN_SETS_DB[id].total, total: KNOWN_SETS_DB[id].total }
                     }));
                 } else {
                     allSetsData = fetchedSets.filter(s => s.cardCount && s.cardCount.total > 0);
@@ -410,7 +413,7 @@
             else if (idClean.startsWith('base')) year = 1999;
 
             let code = idClean.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 4);
-            return { year: year, code: code, nameEn: set.name, nameDe: set.name };
+            return { year: year, releaseDate: set.releaseDate || '2024-01-01', code: code, nameEn: set.name, nameDe: set.name };
         }
 
         function renderYearAccordion(searchFilter = '') {
@@ -441,7 +444,16 @@
 
             let isFirstYear = true;
             sortedYears.forEach(year => {
-                const itemsInYear = groupedByYear[year];
+                let itemsInYear = groupedByYear[year];
+
+                // STRIKTE SORTIERUNG: Neuestes Set des Jahres ganz oben, ältestes ganz unten!
+                itemsInYear.sort((a, b) => {
+                    const dateA = a.info.releaseDate || a.set.releaseDate || '';
+                    const dateB = b.info.releaseDate || b.set.releaseDate || '';
+                    if (dateA && dateB) return dateB.localeCompare(dateA);
+                    return b.set.id.localeCompare(a.set.id);
+                });
+
                 const yearCard = document.createElement('div');
                 yearCard.className = `year-card ${isFirstYear || searchLower ? 'open' : ''}`;
 
