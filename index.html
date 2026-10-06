@@ -237,7 +237,7 @@
             position: relative; 
             width: 100%; 
             max-width: 340px; 
-            aspect-ratio: 63 / 88; /* EXAKTES POKÉMON-KARTEN PROPORTIONSSVERHÄLTNIS */
+            aspect-ratio: 63 / 88; 
             background: #000; 
             border-radius: 16px; 
             overflow: hidden; 
@@ -266,7 +266,6 @@
         }
         .camera-guide-text { color: white; font-size: 0.72rem; font-weight: 700; background: rgba(0,0,0,0.8); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
 
-        /* NEU: PSA STEP & PREVIEW STYLES */
         .psa-step-badge { background: var(--psa-red); color: white; padding: 6px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; display: inline-block; }
 
         .psa-mini-preview-container {
@@ -567,7 +566,7 @@
                 </div>
             </div>
 
-            <div class="btn-group">
+            <div class="btn-group" id="psa-cam-controls">
                 <button class="btn btn-pdf" id="btn-psa-start-cam">📷 Kamera an</button>
                 <button class="btn btn-psa" id="btn-psa-analyze" disabled>📷 Vorderseite aufnehmen</button>
             </div>
@@ -1463,7 +1462,7 @@
         }
 
         /* ------------------------------------------------------------- */
-        /* PSA PRE-GRADER MIT ZWEI-SCHRITT-ANALYSE & LIVE-PREVIEW       */
+        /* PSA PRE-GRADER MIT KORREKTEM SUCHER & DYNAMISCHEM RATING       */
         /* ------------------------------------------------------------- */
         async function startPsaCamera() {
             const video = document.getElementById('psa-video');
@@ -1500,6 +1499,7 @@
             document.getElementById('btn-psa-analyze').textContent = '📷 Vorderseite aufnehmen';
             document.getElementById('psa-results-container').style.display = 'none';
             document.getElementById('psa-camera-box').style.display = 'flex';
+            document.getElementById('psa-cam-controls').style.display = 'flex';
             
             document.getElementById('psa-thumb-front-wrapper').innerHTML = '<div class="psa-preview-placeholder">Kein Bild</div>';
             document.getElementById('psa-thumb-back-wrapper').innerHTML = '<div class="psa-preview-placeholder">Kein Bild</div>';
@@ -1520,14 +1520,13 @@
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Bild als Data URL für Vorschau speichern
-            const currentSnapDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-
+            const currentSnapDataUrl = canvas.toDataURL('image/jpeg', 0.85);
             const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const pixels = imgData.data;
 
-            const boxW = canvas.width * 0.7;
-            const boxH = boxW * (88 / 63); // Exaktes 63x88mm Verhältnis
+            // Fokus auf das Innere der Karte legen, um Hintergrund auszuschließen
+            const boxW = canvas.width * 0.65;
+            const boxH = boxW * (88 / 63);
             const startX = (canvas.width - boxW) / 2;
             const startY = (canvas.height - boxH) / 2;
 
@@ -1536,73 +1535,80 @@
                 return (pixels[idx] + pixels[idx+1] + pixels[idx+2]) / 3;
             }
 
-            // 1. Ecken-Check auf Whitening
-            let whiteningCount = 0;
+            // 1. Ecken-Check auf Whitening (Weiße Fransen an den Kanten)
+            let whiteningPoints = 0;
             const corners = [
-                {x: startX, y: startY},
-                {x: startX + boxW, y: startY},
-                {x: startX, y: startY + boxH},
-                {x: startX + boxW, y: startY + boxH}
+                {x: startX + 10, y: startY + 10},
+                {x: startX + boxW - 10, y: startY + 10},
+                {x: startX + 10, y: startY + boxH - 10},
+                {x: startX + boxW - 10, y: startY + boxH - 10}
             ];
 
             corners.forEach(c => {
-                if (getPixelBrightness(c.x, c.y) > 195) whiteningCount++;
+                if (getPixelBrightness(c.x, c.y) > 220) whiteningPoints++;
             });
 
-            // 2. Oberflächen- / Knick-Check über Helligkeitsvarianz
-            let highContrastLines = 0;
+            // 2. Erhöhte Toleranz für Kontraste, um normale Motive nicht als Knick zu werten
+            let sharpCreases = 0;
             let prevB = getPixelBrightness(startX + boxW/2, startY + boxH/2);
 
-            for (let y = startY + 25; y < startY + boxH - 25; y += 15) {
-                for (let x = startX + 25; x < startX + boxW - 25; x += 15) {
+            for (let y = startY + 40; y < startY + boxH - 40; y += 25) {
+                for (let x = startX + 40; x < startX + boxW - 40; x += 25) {
                     let currentB = getPixelBrightness(x, y);
-                    if (Math.abs(currentB - prevB) > 60) highContrastLines++;
+                    // Nur extrem scharfe und plötzliche Schattenbrüche als Knick zählen (> 95)
+                    if (Math.abs(currentB - prevB) > 95) {
+                        sharpCreases++;
+                    }
                     prevB = currentB;
                 }
             }
 
-            // Notenberechnung
-            let stepGrade = 10;
-            if (highContrastLines > 12 || whiteningCount >= 2) {
-                stepGrade = 4; // Schwerer Knick / Abnutzung / Schmutz
-            } else if (highContrastLines > 6 || whiteningCount === 1) {
-                stepGrade = 6; // Mittlerer Mangel
-            } else if (highContrastLines > 2) {
-                stepGrade = 8; // Leichte Abnutzung
+            // Dynamische Notenberechnung
+            let stepGrade = 9;
+            if (sharpCreases >= 8 || whiteningPoints >= 3) {
+                stepGrade = 4; // Schwerer Mangel / Knick
+            } else if (sharpCreases >= 4 || whiteningPoints === 2) {
+                stepGrade = 6; // Leichter Knick / Abnutzung
+            } else if (sharpCreases >= 2 || whiteningPoints === 1) {
+                stepGrade = 7; // Mildes Whitening / Excellent
+            } else if (sharpCreases === 1) {
+                stepGrade = 8; // Near Mint
+            } else {
+                stepGrade = 9; // Mint
             }
 
             if (psaCurrentStep === 'front') {
-                // SCHRITT 1: VORDERSEITE GESPEICHERT
                 psaFrontScore = stepGrade;
                 psaFrontImgDataUrl = currentSnapDataUrl;
 
                 document.getElementById('psa-thumb-front-wrapper').innerHTML = `<img class="psa-preview-thumb" src="${psaFrontImgDataUrl}" alt="Front">`;
                 document.getElementById('psa-stat-front').textContent = `PSA ${psaFrontScore}`;
 
-                // Nächster Schritt: Rückseite
+                // SCHRITT 2: Kamera bleibt aktiv für Rückseite
                 psaCurrentStep = 'back';
                 document.getElementById('psa-step-indicator').textContent = 'Schritt 2: RÜCKSEITE SCANNEN';
                 document.getElementById('psa-guide-text').textContent = 'Karte umdrehen & Rückseite ausrichten';
                 document.getElementById('btn-psa-analyze').textContent = '📷 Rückseite aufnehmen';
                 
-                statusBadge.textContent = 'Vorderseite im Kasten! Jetzt Rückseite knipsen.';
+                statusBadge.textContent = 'Vorderseite gesichert! Kamera bereit für Rückseite.';
                 statusBadge.style.color = 'var(--warning-color)';
             } else {
-                // SCHRITT 2: RÜCKSEITE GESPEICHERT -> FINALES ERGEBNIS
+                // FINALE AUSWERTUNG
                 psaBackScore = stepGrade;
                 psaBackImgDataUrl = currentSnapDataUrl;
 
                 document.getElementById('psa-thumb-back-wrapper').innerHTML = `<img class="psa-preview-thumb" src="${psaBackImgDataUrl}" alt="Back">`;
                 document.getElementById('psa-stat-back').textContent = `PSA ${psaBackScore}`;
 
-                // Fotos in Vergleichsansicht laden
+                // Fotos nebeneinander anzeigen
                 document.getElementById('psa-img-compare-front').src = psaFrontImgDataUrl;
                 document.getElementById('psa-img-compare-back').src = psaBackImgDataUrl;
 
-                // Kamera-Kasten ausblenden
+                // Kamera-Kasten & Buttons nach Schritt 2 ausblenden
                 document.getElementById('psa-camera-box').style.display = 'none';
+                document.getElementById('psa-cam-controls').style.display = 'none';
 
-                // Gesamtergebnis berechnen (Das schlechtere Ergebnis bestimmt die Note)
+                // Das schwächere Merkmal bestimmt die Gesamtnote
                 const finalGrade = Math.min(psaFrontScore, psaBackScore);
                 document.getElementById('psa-result-grade').textContent = `PSA ${finalGrade}`;
 
@@ -1611,30 +1617,30 @@
                 const verdictBox = document.getElementById('psa-result-verdict');
 
                 if (finalGrade <= 5) {
-                    cornersStat.textContent = 'Whitening / Knick';
+                    cornersStat.textContent = 'Knick / Starke Mängel';
                     cornersStat.style.color = 'var(--psa-red)';
                     edgesStat.textContent = 'Beschädigt';
                     edgesStat.style.color = 'var(--psa-red)';
-                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Played/Damaged):</b> Starke Knicke, Flecken oder Abnutzung erkannt. Die Karte ist in gebrauchtem Zustand. Ein Grading lohnt sich finanziell nicht.`;
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Played/Damaged):</b> Deutliche Mängel, Knicke oder starke Kantenabnutzung erkannt.`;
                     verdictBox.style.borderColor = 'var(--psa-red)';
-                } else if (finalGrade <= 8) {
-                    cornersStat.textContent = 'Sichtbarer Abrieb';
+                } else if (finalGrade <= 7) {
+                    cornersStat.textContent = 'Kantenabrieb';
                     cornersStat.style.color = 'var(--warning-color)';
                     edgesStat.textContent = 'Gebrauchsspuren';
                     edgesStat.style.color = 'var(--warning-color)';
-                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Near Mint):</b> Leichte Abnutzung am Rand oder kleine Oberflächenfehler erkannt.`;
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Excellent/Near Mint):</b> Leichte bis mittlere Abnutzung an den Rändern erkennbar.`;
                     verdictBox.style.borderColor = 'var(--warning-color)';
                 } else {
                     cornersStat.textContent = 'Sauber';
                     cornersStat.style.color = 'var(--accent-green)';
                     edgesStat.textContent = 'Keine Knicke';
                     edgesStat.style.color = 'var(--accent-green)';
-                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA 9-10):</b> Sowohl Vorder- als auch Rückseite machen einen hervorragenden Eindruck!`;
+                    verdictBox.innerHTML = `<b>Gesamtergebnis (PSA ${finalGrade} - Mint / Gem Mint):</b> Hervorragender Zustand mit minimalen bis keinen erkennbaren Mängeln!`;
                     verdictBox.style.borderColor = 'var(--accent-green)';
                 }
 
                 document.getElementById('psa-results-container').style.display = 'block';
-                statusBadge.textContent = 'Grading fertig!';
+                statusBadge.textContent = 'Analyse abgeschlossen!';
                 statusBadge.style.color = 'var(--accent-green)';
             }
         }
