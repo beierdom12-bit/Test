@@ -68,8 +68,8 @@
             border: 1px solid var(--border-color); 
         }
 
-        /* SEARCH & ACTION BAR */
-        .search-box-wrapper { margin-bottom: 10px; position: relative; }
+        /* SEARCH & NAVIGATION */
+        .search-box-wrapper { margin-bottom: 12px; position: relative; }
         .search-input { 
             width: 100%; 
             padding: 12px 16px 12px 40px; 
@@ -84,24 +84,30 @@
         .search-input:focus { border-color: var(--primary-color); }
         .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; font-size: 0.9rem; }
 
-        .btn-my-cards {
-            width: 100%;
+        .nav-modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .nav-btn {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid var(--primary-color);
+            border: 1px solid var(--border-color);
             color: #93c5fd;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 0.9rem;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 6px;
             cursor: pointer;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.2);
+            text-decoration: none;
             transition: all 0.2s;
         }
-        .btn-my-cards:active { transform: scale(0.98); }
+        .nav-btn:active { transform: scale(0.97); }
 
         .btn { 
             padding: 10px 16px; 
@@ -139,39 +145,45 @@
         .set-item-top { display: flex; justify-content: space-between; align-items: center; }
         .set-item-left { display: flex; align-items: center; gap: 12px; overflow: hidden; }
         
+        /* HOCHKONTRAST KARTEN-SYMBOL BADGES (HELLER HINTERGRUND FÜR SCHWARZE SYMBOLE) */
         .set-badge-icon { 
-            width: 36px; 
-            height: 36px; 
-            border-radius: 8px; 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 10px; 
             background: #ffffff; 
-            border: 1px solid var(--border-color); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 0.7rem; 
+            font-size: 0.68rem; 
             font-weight: 900; 
             color: #0f172a; 
             flex-shrink: 0; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             overflow: hidden;
-            padding: 3px;
+            padding: 4px;
         }
 
-        .set-badge-symbol-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 1px rgba(0,0,0,0.5)); }
+        .set-badge-symbol-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+        }
+
         .set-item-name { font-size: 0.88rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .set-item-stats { font-size: 0.8rem; font-weight: 800; color: #cbd5e1; flex-shrink: 0; }
         .set-progress-bg { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
         .set-progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
 
-        /* TRACKER GRID & BINDER GRID */
+        /* TRACKER GRID STYLES */
         .set-banner-box { display: flex; align-items: center; justify-content: space-between; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; gap: 14px; }
         .set-banner-logo { max-height: 42px; max-width: 120px; object-fit: contain; }
         .progress-container { flex-grow: 1; }
         .progress-bar-bg { width: 100%; height: 8px; background: rgba(0,0,0,0.4); border-radius: 6px; overflow: hidden; margin-top: 6px; border: 1px solid var(--border-color); }
         .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #10b981 0%, #34d399 100%); width: 0%; transition: width 0.4s ease; }
 
-        .tracker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 12px; max-height: 60vh; overflow-y: auto; padding: 12px; background: rgba(0,0,0,0.25); border-radius: 14px; border: 1px solid var(--border-color); margin-top: 14px; }
-        .tracker-card { position: relative; background: var(--surface-card); border-radius: 12px; border: 1px solid var(--border-color); padding: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.2s ease-in-out; user-select: none; }
+        .tracker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 12px; max-height: 65vh; overflow-y: auto; padding: 12px; background: rgba(0,0,0,0.25); border-radius: 14px; border: 1px solid var(--border-color); margin-top: 14px; }
+        .tracker-card { position: relative; background: var(--surface-card); border-radius: 12px; border: 1px solid var(--border-color); padding: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.2s ease-in-out; user-select: none; touch-action: manipulation; }
         .tracker-card-img { width: 100%; height: 125px; object-fit: contain; filter: grayscale(100%) opacity(0.35); transition: filter 0.25s ease, opacity 0.25s ease; pointer-events: none; }
         .tracker-card-info { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-align: center; margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; pointer-events: none; }
         .tracker-card.owned { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.08); }
@@ -185,22 +197,62 @@
         .pill.holo { background: rgba(245, 158, 11, 0.2); color: #fde047; }
         .card-menu-btn { position: absolute; top: 6px; left: 6px; background: rgba(15, 23, 42, 0.8); color: var(--text-muted); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; z-index: 10; border: 1px solid var(--border-color); }
 
-        /* BINDER VIEW (3x3) STYLES */
-        .binder-filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-        .binder-filter-select { flex: 1; min-width: 140px; background: var(--surface-card); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; font-weight: 600; outline: none; }
-        
-        .my-binder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 16px; border: 1px solid var(--border-color); max-width: 500px; margin: 0 auto; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
-        .my-binder-slot { aspect-ratio: 63/88; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; }
-        .my-binder-img { width: 100%; height: 100%; object-fit: cover; }
-        .my-binder-badge { position: absolute; top: 4px; right: 4px; background: rgba(16, 185, 129, 0.9); color: white; border-radius: 6px; font-size: 0.6rem; font-weight: 800; padding: 2px 5px; }
-
-        .binder-pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
-
         /* MODAL STYLES */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 12px; }
         .modal-overlay.open { display: flex; }
-        .modal-box { background: #131a29; border-radius: 18px; padding: 22px; width: 92%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid var(--border-color); }
-        .modal-header { font-weight: 800; font-size: 1.05rem; margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; color: var(--text-main); }
+        .modal-box { position: relative; background: #131a29; border-radius: 18px; padding: 18px; width: 95%; max-width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); border: 1px solid var(--border-color); max-height: 92vh; overflow-y: auto; display: flex; flex-direction: column; align-items: center; touch-action: pan-y; }
+        
+        .modal-close-x {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 30;
+            transition: all 0.2s ease;
+        }
+        .modal-close-x:active { transform: scale(0.9); background: var(--accent-red); color: white; }
+
+        .modal-card-img-container { position: relative; width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 12px; margin-top: 10px; }
+        .modal-card-img-large { max-height: 320px; width: auto; max-width: 100%; object-fit: contain; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); transition: transform 0.2s ease, opacity 0.2s ease; }
+
+        .modal-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 20;
+            user-select: none;
+            backdrop-filter: blur(4px);
+            transition: all 0.2s;
+        }
+        .modal-nav-arrow:active { transform: translateY(-50%) scale(0.9); background: var(--primary-color); }
+        .modal-nav-prev { left: 0px; }
+        .modal-nav-next { right: 0px; }
+
+        .modal-header { font-weight: 800; font-size: 1.05rem; text-align: center; color: var(--text-main); }
+        .modal-subtitle { font-size: 0.75rem; color: var(--primary-color); font-weight: 700; margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; width: 100%; text-align: center; }
+        .variant-wrapper { width: 100%; }
         .variant-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
         .counter-btn { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--surface-card); color: var(--text-main); cursor: pointer; font-weight: bold; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; }
     </style>
@@ -221,38 +273,15 @@
                 <input type="text" id="series-search-input" class="search-input" placeholder="Serie, Set oder Kürzel suchen (z. B. Silver Tempest, DRI)...">
             </div>
 
-            <button class="btn-my-cards" id="btn-open-my-cards">
-                <span>🎴 Meine Karten (Binder-Ansicht)</span>
-                <span id="total-owned-badge" style="background:var(--primary-color); color:white; padding:2px 8px; border-radius:10px; font-size:0.75rem;">0</span>
-            </button>
+            <div class="nav-modules-grid">
+                <a href="binder.html" class="nav-btn">🎴 Meine Karten</a>
+                <a href="generator.html" class="nav-btn">📄 Platzhalter PDF</a>
+                <a href="scanner.html" class="nav-btn">📷 OCR Scanner</a>
+                <a href="grader.html" class="nav-btn">🔍 Pre-Grader</a>
+            </div>
             
             <div class="series-accordion-container" id="series-accordion-container">
                 <div style="text-align:center; color:var(--text-muted); padding:30px;">Lade Serien und Sets...</div>
-            </div>
-        </div>
-
-        <!-- GESAMTSAMMLUNG BINDER VIEW (3x3) -->
-        <div id="my-cards-view" style="display:none;">
-            <div class="binder-filter-bar">
-                <select class="binder-filter-select" id="sort-by-select">
-                    <option value="date-desc">📅 Neuestes Datum zuerst</option>
-                    <option value="date-asc">📅 Ältestes Datum zuerst</option>
-                    <option value="number-asc">🔢 Kartennummer aufsteigend</option>
-                    <option value="number-desc">🔢 Kartennummer absteigend</option>
-                    <option value="name-asc">🔤 Name (A-Z)</option>
-                    <option value="name-desc">🔤 Name (Z-A)</option>
-                </select>
-                <select class="binder-filter-select" id="filter-set-select">
-                    <option value="all">Alle Sets anzeigen</option>
-                </select>
-            </div>
-
-            <div class="my-binder-grid" id="my-binder-grid"></div>
-
-            <div class="binder-pagination">
-                <button class="btn btn-outline" id="btn-binder-prev">◄ Zurück</button>
-                <span id="binder-page-indicator" style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">Seite 1</span>
-                <button class="btn btn-outline" id="btn-binder-next">Weiter ►</button>
             </div>
         </div>
 
@@ -273,11 +302,21 @@
         </div>
     </div>
 
-    <!-- MODAL: VARIANTEN BEARBEITEN -->
+    <!-- MODAL: LARGE IMAGE & VARIANTEN BEARBEITEN -->
     <div class="modal-overlay" id="variant-modal">
-        <div class="modal-box">
+        <div class="modal-box" id="modal-box">
+            <div class="modal-close-x" id="btn-modal-x-close">✕</div>
+
+            <div class="modal-card-img-container" id="modal-card-container">
+                <div class="modal-nav-arrow modal-nav-prev" id="btn-modal-prev">◄</div>
+                <img id="modal-card-img-large" class="modal-card-img-large" src="" alt="Große Kartenvorschau">
+                <div class="modal-nav-arrow modal-nav-next" id="btn-modal-next">►</div>
+            </div>
+
             <div class="modal-header" id="modal-card-title">Karte bearbeiten</div>
-            <div>
+            <div class="modal-subtitle" id="modal-card-subtitle">Optionen anpassen</div>
+            
+            <div class="variant-wrapper">
                 <div class="variant-row" id="row-var-normal">
                     <span>Standard / Normal</span>
                     <div>
@@ -303,30 +342,37 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary" style="width:100%; margin-top:14px;" id="btn-close-modal">Speichern</button>
+            <button class="btn btn-primary" style="width:100%; margin-top:14px;" id="btn-save-modal">Speichern</button>
         </div>
     </div>
 
     <script>
         const API_BASE = 'https://api.tcgdex.net/v2/de';
-        const POKEMON_TCG_IO_BASE = 'https://api.pokemontcg.io/v2/cards';
         
         let allSetsData = [];
         let currentCards = [];
         let currentSetId = '';
         let currentSetName = '';
         let currentSetLogo = '';
-        let activeEditCardId = null;
+        let activeEditCardIndex = -1;
 
-        // BINDER COLLECTION STATE
-        let binderCardsList = [];
-        let currentBinderPage = 0;
+        let initialCardState = { normal: 0, reverse: 0, holo: 0 };
+        let tempCardState = { normal: 0, reverse: 0, holo: 0 };
 
-        const POKEMONTCG_IO_SET_MAP = {
-            'base1': 'base1', 'ju': 'base2', 'fo': 'base3', 'tr': 'base4', 'neo1': 'neo1',
-            'ex01': 'ex1', 'dp01': 'dp1', 'bw01': 'bw1', 'hgss01': 'hgss1',
-            'xy-promos': 'xyp', 'xyp': 'xyp', 'sm-promos': 'smp', 'smp': 'smp',
-            'swsh-promos': 'swshp', 'swshp': 'swshp', 'sv-promos': 'svp', 'svp': 'svp'
+        /* VOLLSTÄNDIGE SCHWERT & SCHILD + KARMESIN & PURPUR MAPPING TAFEL DAFÜR DASS DIE ECHTEN POKEMON-SYMBOLE GELADEN WERDEN */
+        const TCGDEX_SYMBOL_FALLBACKS = {
+            'swsh12': 'https://assets.tcgdex.net/de/swsh/swsh12/symbol.png',
+            'swsh11': 'https://assets.tcgdex.net/de/swsh/swsh11/symbol.png',
+            'swsh10': 'https://assets.tcgdex.net/de/swsh/swsh10/symbol.png',
+            'swsh09': 'https://assets.tcgdex.net/de/swsh/swsh09/symbol.png',
+            'swsh08': 'https://assets.tcgdex.net/de/swsh/swsh08/symbol.png',
+            'swsh07': 'https://assets.tcgdex.net/de/swsh/swsh07/symbol.png',
+            'swsh06': 'https://assets.tcgdex.net/de/swsh/swsh06/symbol.png',
+            'swsh05': 'https://assets.tcgdex.net/de/swsh/swsh05/symbol.png',
+            'swsh04': 'https://assets.tcgdex.net/de/swsh/swsh04/symbol.png',
+            'swsh03': 'https://assets.tcgdex.net/de/swsh/swsh03/symbol.png',
+            'swsh02': 'https://assets.tcgdex.net/de/swsh/swsh02/symbol.png',
+            'swsh01': 'https://assets.tcgdex.net/de/swsh/swsh01/symbol.png'
         };
 
         const KNOWN_SETS_DB = {
@@ -382,55 +428,22 @@
             try { localStorage.setItem(`collection_${setId}`, JSON.stringify(data)); } catch(e) {}
         }
 
-        function getCardImageUrl(c, setId = currentSetId, quality = 'low') {
-            if (!c || !c.image) return `https://assets.tcgdex.net/de/${setId}/${c.localId || c.id}/${quality}.webp`;
-            let rawImg = c.image;
-            if (rawImg.endsWith('.webp') || rawImg.endsWith('.png') || rawImg.endsWith('.jpg')) return rawImg;
-            if (rawImg.startsWith('http')) return `${rawImg}/${quality}.webp`;
-            return `https://assets.tcgdex.net/de/${setId}/${c.localId}/${quality}.webp`;
-        }
-
-        function getSetSymbolUrl(set, infoCode) {
-            const setIdClean = set.id.toLowerCase();
+        function getSetSymbolUrl(set) {
             if (set.symbol) {
-                if (set.symbol.startsWith('http')) return `${set.symbol}.png`;
-                return `${set.symbol}.png`;
+                return set.symbol.startsWith('http') ? `${set.symbol}.png` : set.symbol;
             }
-            const ioSetId = POKEMONTCG_IO_SET_MAP[setIdClean] || setIdClean;
-            return `https://images.pokemontcg.io/${ioSetId}/symbol.png`;
+            const cleanId = set.id.toLowerCase();
+            if (TCGDEX_SYMBOL_FALLBACKS[cleanId]) return TCGDEX_SYMBOL_FALLBACKS[cleanId];
+            return '';
         }
 
         function checkIsUltraRareCard(cardName) {
             const nameLower = (cardName || '').toLowerCase();
             return nameLower.includes('-ex') || nameLower.includes(' ex') || 
                    nameLower.includes(' v') || nameLower.includes('vmax') || 
-                   nameLower.includes('vstar') || nameLower.includes('gx');
-        }
-
-        function updateTotalOwnedCount() {
-            let totalOwned = 0;
-            const filterSelect = document.getElementById('filter-set-select');
-            filterSelect.innerHTML = '<option value="all">Alle Sets anzeigen</option>';
-
-            allSetsData.forEach(s => {
-                const collection = getSetCollection(s.id);
-                let setOwned = 0;
-                for (let cardId in collection) {
-                    const item = collection[cardId];
-                    if (((item.normal || 0) + (item.reverse || 0) + (item.holo || 0)) > 0) {
-                        totalOwned++;
-                        setOwned++;
-                    }
-                }
-                if (setOwned > 0) {
-                    const opt = document.createElement('option');
-                    opt.value = s.id;
-                    opt.textContent = `${s.name} (${setOwned})`;
-                    filterSelect.appendChild(opt);
-                }
-            });
-
-            document.getElementById('total-owned-badge').textContent = totalOwned;
+                   nameLower.includes('vstar') || nameLower.includes('gx') ||
+                   nameLower.includes('full art') || nameLower.includes('secret rare') ||
+                   nameLower.includes('illustration rare') || nameLower.includes('ace spec');
         }
 
         async function init(forceRefresh = false) {
@@ -455,7 +468,6 @@
                 }
 
                 renderYearAccordion();
-                updateTotalOwnedCount();
                 trackerStatus.textContent = 'Bereit';
             } catch (err) {
                 trackerStatus.textContent = 'Bereit (Offline)';
@@ -550,15 +562,20 @@
                     else if (pct >= 20 && pct < 50) barColor = 'var(--warning-color)';
                     else if (pct >= 50) barColor = 'var(--accent-green)';
 
-                    const symbolUrl = getSetSymbolUrl(s, info.code);
+                    const symbolUrl = getSetSymbolUrl(s);
+
                     const setRow = document.createElement('div');
                     setRow.className = 'set-item-row';
+                    
+                    let badgeContent = `<b>${info.code}</b>`;
+                    if (symbolUrl) {
+                        badgeContent = `<img class="set-badge-symbol-img" src="${symbolUrl}" alt="${info.code}" onerror="this.onerror=null; this.parentNode.innerHTML='<b>${info.code}</b>';">`;
+                    }
+
                     setRow.innerHTML = `
                         <div class="set-item-top">
                             <div class="set-item-left">
-                                <div class="set-badge-icon">
-                                    <img class="set-badge-symbol-img" src="${symbolUrl}" alt="${info.code}" onerror="this.onerror=null; this.parentNode.innerHTML='<b>${info.code}</b>';">
-                                </div>
+                                <div class="set-badge-icon">${badgeContent}</div>
                                 <div class="set-item-name">${s.name}</div>
                             </div>
                             <div class="set-item-stats">${owned}/${total} <span style="opacity:0.6; font-size:0.75rem;">| ${pct}%</span></div>
@@ -578,103 +595,11 @@
             });
         }
 
-        /* ------------------------------------------------------------- */
-        /* MEINE KARTEN (GLOBALE BINDER ANSICHT 3x3)                     */
-        /* ------------------------------------------------------------- */
-        function openMyCardsBinder() {
-            document.getElementById('main-overview-section').style.display = 'none';
-            document.getElementById('set-detail-view').style.display = 'none';
-            document.getElementById('my-cards-view').style.display = 'block';
-            document.getElementById('btn-back-to-series').style.display = 'inline-block';
-            document.getElementById('tracker-main-title').textContent = 'Meine Karten (Binder)';
-
-            loadAndSortBinderCards();
-        }
-
-        function loadAndSortBinderCards() {
-            binderCardsList = [];
-            const filterSet = document.getElementById('filter-set-select').value;
-            const sortBy = document.getElementById('sort-by-select').value;
-
-            allSetsData.forEach(s => {
-                if (filterSet !== 'all' && s.id !== filterSet) return;
-                const collection = getSetCollection(s.id);
-                const info = getSetYearAndCode(s);
-
-                for (let cardId in collection) {
-                    const cData = collection[cardId];
-                    const total = (cData.normal || 0) + (cData.reverse || 0) + (cData.holo || 0);
-                    if (total > 0) {
-                        const localNum = parseInt(cardId.split('-')[1]) || 999;
-                        binderCardsList.push({
-                            id: cardId,
-                            setId: s.id,
-                            setName: s.name,
-                            name: cData.name || cardId,
-                            localId: localNum,
-                            count: total,
-                            releaseDate: info.releaseDate || '2024-01-01',
-                            image: getCardImageUrl({ localId: localNum, image: cData.image }, s.id)
-                        });
-                    }
-                }
-            });
-
-            // SORTIERUNG ANWENDEN
-            binderCardsList.sort((a, b) => {
-                if (sortBy === 'date-desc') return b.releaseDate.localeCompare(a.releaseDate);
-                if (sortBy === 'date-asc') return a.releaseDate.localeCompare(b.releaseDate);
-                if (sortBy === 'number-asc') return a.localId - b.localId;
-                if (sortBy === 'number-desc') return b.localId - a.localId;
-                if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
-                if (sortBy === 'name-desc') return b.name.localeCompare(a.name);
-                return 0;
-            });
-
-            currentBinderPage = 0;
-            renderBinderGrid();
-        }
-
-        function renderBinderGrid() {
-            const grid = document.getElementById('my-binder-grid');
-            grid.innerHTML = '';
-
-            const itemsPerPage = 9;
-            const totalPages = Math.max(1, Math.ceil(binderCardsList.length / itemsPerPage));
-            
-            if (currentBinderPage >= totalPages) currentBinderPage = totalPages - 1;
-            if (currentBinderPage < 0) currentBinderPage = 0;
-
-            document.getElementById('binder-page-indicator').textContent = `Seite ${currentBinderPage + 1} von ${totalPages}`;
-
-            const pageItems = binderCardsList.slice(currentBinderPage * itemsPerPage, (currentBinderPage + 1) * itemsPerPage);
-
-            for (let i = 0; i < 9; i++) {
-                const slot = document.createElement('div');
-                slot.className = 'my-binder-slot';
-
-                if (i < pageItems.length) {
-                    const card = pageItems[i];
-                    slot.innerHTML = `
-                        <div class="my-binder-badge">${card.count}x</div>
-                        <img class="my-binder-img" src="${card.image}" alt="${card.name}">
-                    `;
-                    slot.onclick = () => openModal(card.id, card.name, card.setId);
-                } else {
-                    slot.style.borderStyle = 'dashed';
-                    slot.style.opacity = '0.3';
-                }
-                grid.appendChild(slot);
-            }
-        }
-
         function showSeriesList() {
             document.getElementById('main-overview-section').style.display = 'block';
-            document.getElementById('my-cards-view').style.display = 'none';
             document.getElementById('set-detail-view').style.display = 'none';
             document.getElementById('btn-back-to-series').style.display = 'none';
             document.getElementById('tracker-main-title').textContent = 'Serien & Erweiterungen';
-            updateTotalOwnedCount();
             renderYearAccordion(document.getElementById('series-search-input').value);
         }
 
@@ -682,7 +607,6 @@
             if (!setId) return;
             currentSetId = setId;
             document.getElementById('main-overview-section').style.display = 'none';
-            document.getElementById('my-cards-view').style.display = 'none';
             document.getElementById('set-detail-view').style.display = 'block';
             document.getElementById('btn-back-to-series').style.display = 'inline-block';
 
@@ -717,24 +641,29 @@
             }
         }
 
-        function handleCardClick(setId, cardId, cardName) {
+        function handleCardClick(setId, cardObj, index) {
+            const cardId = typeof cardObj === 'string' ? cardObj : cardObj.id;
+            const cardName = cardObj.name || cardId;
             const collection = getSetCollection(setId);
-            const cardData = collection[cardId] || { normal: 0, reverse: 0, holo: 0, name: cardName };
+            const cardData = collection[cardId] || { normal: 0, reverse: 0, holo: 0 };
+
+            cardData.name = cardName;
+            cardData.localId = cardObj.localId || cardId;
+            cardData.image = cardObj.image ? `${cardObj.image}/high.webp` : `https://assets.tcgdex.net/de/${setId}/${cardData.localId}/high.webp`;
+
             const total = (cardData.normal || 0) + (cardData.reverse || 0) + (cardData.holo || 0);
 
             if (total === 0) {
                 if (checkIsUltraRareCard(cardName)) {
-                    cardData.holo = 1; cardData.normal = 0;
+                    cardData.holo = 1; cardData.normal = 0; cardData.reverse = 0;
                 } else {
                     cardData.normal = 1;
                 }
-                cardData.name = cardName;
                 collection[cardId] = cardData;
                 saveSetCollection(setId, collection);
                 renderTrackerGrid();
-                updateTotalOwnedCount();
             } else {
-                openModal(cardId, cardName, setId);
+                openModalByIndex(index);
             }
         }
 
@@ -747,7 +676,7 @@
             const collection = getSetCollection(currentSetId);
             let uniqueCount = 0;
 
-            currentCards.forEach(c => {
+            currentCards.forEach((c, index) => {
                 const cardData = collection[c.id] || { normal: 0, reverse: 0, holo: 0, name: c.name };
                 const norm = cardData.normal || 0;
                 const rev = cardData.reverse || 0;
@@ -759,9 +688,39 @@
 
                 const cardEl = document.createElement('div');
                 cardEl.className = `tracker-card ${isOwned ? 'owned' : ''}`;
-                let imgUrl = getCardImageUrl(c, currentSetId, 'low');
+                
+                let imgUrlLow = c.image ? `${c.image}/low.webp` : `https://assets.tcgdex.net/de/${currentSetId}/${c.localId}/low.webp`;
 
-                cardEl.addEventListener('click', () => handleCardClick(currentSetId, c.id, c.name));
+                let pressTimer = null;
+                let isLongPress = false;
+
+                const startPress = () => {
+                    isLongPress = false;
+                    pressTimer = setTimeout(() => {
+                        isLongPress = true;
+                        openModalByIndex(index);
+                    }, 500);
+                };
+
+                const cancelPress = () => {
+                    if (pressTimer) clearTimeout(pressTimer);
+                };
+
+                cardEl.addEventListener('touchstart', startPress, { passive: true });
+                cardEl.addEventListener('touchend', (e) => {
+                    cancelPress();
+                    if (!isLongPress) {
+                        handleCardClick(currentSetId, c, index);
+                    }
+                });
+                cardEl.addEventListener('mousedown', startPress);
+                cardEl.addEventListener('mouseup', () => {
+                    cancelPress();
+                    if (!isLongPress) {
+                        handleCardClick(currentSetId, c, index);
+                    }
+                });
+                cardEl.addEventListener('mouseleave', cancelPress);
 
                 let pillsHtml = '';
                 if (norm > 0) pillsHtml += `<span class="pill">${norm}x N</span>`;
@@ -771,13 +730,14 @@
                 cardEl.innerHTML = `
                     <div class="card-menu-btn">⚙</div>
                     <div class="count-badge">${total}x</div>
-                    <img class="tracker-card-img" src="${imgUrl}" alt="${c.name}" loading="lazy">
+                    <img class="tracker-card-img" src="${imgUrlLow}" alt="${c.name}" loading="lazy">
                     <div class="tracker-card-info">#${c.localId} ${c.name}</div>
                     <div class="variant-pills">${pillsHtml}</div>
                 `;
 
                 cardEl.querySelector('.card-menu-btn').addEventListener('click', (e) => {
-                    e.stopPropagation(); openModal(c.id, c.name, currentSetId);
+                    e.stopPropagation();
+                    openModalByIndex(index);
                 });
                 trackerGrid.appendChild(cardEl);
             });
@@ -788,55 +748,128 @@
             progressFill.style.width = `${pct}%`;
         }
 
-        function openModal(cardId, cardName, setId = currentSetId) {
-            activeEditCardId = cardId;
-            currentSetId = setId;
-            const collection = getSetCollection(setId);
-            const cardData = collection[cardId] || { normal: 0, reverse: 0, holo: 0 };
+        function openModalByIndex(index) {
+            if (index < 0 || index >= currentCards.length) return;
+            activeEditCardIndex = index;
 
-            document.getElementById('modal-card-title').textContent = cardName;
-            document.getElementById('var-count-normal').textContent = cardData.normal || 0;
-            document.getElementById('var-count-reverse').textContent = cardData.reverse || 0;
-            document.getElementById('var-count-holo').textContent = cardData.holo || 0;
+            const card = currentCards[index];
+            const collection = getSetCollection(currentSetId);
+            const cardData = collection[card.id] || { normal: 0, reverse: 0, holo: 0 };
+
+            initialCardState = { normal: cardData.normal || 0, reverse: cardData.reverse || 0, holo: cardData.holo || 0 };
+            tempCardState = { ...initialCardState };
+
+            const isUltraRare = checkIsUltraRareCard(card.name);
+            const cardImgHigh = card.image ? `${card.image}/high.webp` : `https://assets.tcgdex.net/de/${currentSetId}/${card.localId}/high.webp`;
+
+            document.getElementById('modal-card-img-large').src = cardImgHigh;
+            document.getElementById('modal-card-title').textContent = `#${card.localId} ${card.name}`;
+            
+            if (isUltraRare) {
+                document.getElementById('modal-card-subtitle').textContent = '⭐ Ultra Rare / Special Art';
+                document.getElementById('row-var-normal').style.display = 'none';
+                document.getElementById('row-var-reverse').style.display = 'none';
+                document.getElementById('row-var-holo').style.display = 'flex';
+                tempCardState.normal = 0;
+                tempCardState.reverse = 0;
+            } else {
+                document.getElementById('modal-card-subtitle').textContent = 'Varianten verwalten';
+                document.getElementById('row-var-normal').style.display = 'flex';
+                document.getElementById('row-var-reverse').style.display = 'flex';
+                document.getElementById('row-var-holo').style.display = 'flex';
+            }
+
+            document.getElementById('var-count-normal').textContent = tempCardState.normal;
+            document.getElementById('var-count-reverse').textContent = tempCardState.reverse;
+            document.getElementById('var-count-holo').textContent = tempCardState.holo;
+            
             document.getElementById('variant-modal').classList.add('open');
         }
 
         function adjustVariant(type, amount) {
-            if (!activeEditCardId) return;
-            const collection = getSetCollection(currentSetId);
-            const cardData = collection[activeEditCardId] || { normal: 0, reverse: 0, holo: 0 };
-            cardData[type] = Math.max(0, (cardData[type] || 0) + amount);
-            collection[activeEditCardId] = cardData;
-            saveSetCollection(currentSetId, collection);
-            document.getElementById(`var-count-${type}`).textContent = cardData[type];
-            
-            if (document.getElementById('my-cards-view').style.display === 'block') {
-                loadAndSortBinderCards();
-            } else {
-                renderTrackerGrid();
-            }
-            updateTotalOwnedCount();
+            if (activeEditCardIndex < 0) return;
+            tempCardState[type] = Math.max(0, (tempCardState[type] || 0) + amount);
+            document.getElementById(`var-count-${type}`).textContent = tempCardState[type];
         }
 
-        function closeModal() {
-            document.getElementById('variant-modal').classList.remove('open');
-            activeEditCardId = null;
+        function saveCurrentStateSilently() {
+            if (activeEditCardIndex < 0) return;
+            const card = currentCards[activeEditCardIndex];
+            const collection = getSetCollection(currentSetId);
+            const cardData = collection[card.id] || { normal: 0, reverse: 0, holo: 0, name: card.name, localId: card.localId };
+            
+            cardData.normal = tempCardState.normal;
+            cardData.reverse = tempCardState.reverse;
+            cardData.holo = tempCardState.holo;
+
+            collection[card.id] = cardData;
+            saveSetCollection(currentSetId, collection);
+            renderTrackerGrid();
         }
+
+        function saveAndCloseModal() {
+            saveCurrentStateSilently();
+            closeModalDirectly();
+        }
+
+        function attemptCloseWithX() {
+            const hasChanged = tempCardState.normal !== initialCardState.normal ||
+                               tempCardState.reverse !== initialCardState.reverse ||
+                               tempCardState.holo !== initialCardState.holo;
+
+            if (hasChanged) {
+                const confirmClose = confirm("Schließen ohne Speichern?\nWirklich schließen?");
+                if (confirmClose) {
+                    closeModalDirectly();
+                }
+            } else {
+                closeModalDirectly();
+            }
+        }
+
+        function closeModalDirectly() {
+            document.getElementById('variant-modal').classList.remove('open');
+            activeEditCardIndex = -1;
+        }
+
+        function navigateModal(direction) {
+            if (activeEditCardIndex >= 0) {
+                saveCurrentStateSilently();
+            }
+            let newIndex = activeEditCardIndex + direction;
+            if (newIndex >= 0 && newIndex < currentCards.length) {
+                openModalByIndex(newIndex);
+            }
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const modalContainer = document.getElementById('modal-card-container');
+
+        modalContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        modalContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchStartX - touchEndX > swipeThreshold) {
+                navigateModal(1);
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                navigateModal(-1);
+            }
+        }
+
+        document.getElementById('btn-modal-prev').addEventListener('click', () => navigateModal(-1));
+        document.getElementById('btn-modal-next').addEventListener('click', () => navigateModal(1));
 
         document.getElementById('series-search-input').addEventListener('input', (e) => renderYearAccordion(e.target.value));
         document.getElementById('btn-refresh-database').addEventListener('click', () => init(true));
         document.getElementById('btn-back-to-series').addEventListener('click', showSeriesList);
-        document.getElementById('btn-open-my-cards').addEventListener('click', openMyCardsBinder);
-
-        document.getElementById('sort-by-select').addEventListener('change', loadAndSortBinderCards);
-        document.getElementById('filter-set-select').addEventListener('change', loadAndSortBinderCards);
-
-        document.getElementById('btn-binder-prev').addEventListener('click', () => {
-            if (currentBinderPage > 0) { currentBinderPage--; renderBinderGrid(); }
-        });
-        document.getElementById('btn-binder-next').addEventListener('click', () => {
-            currentBinderPage++; renderBinderGrid();
-        });
 
         document.getElementById('btn-normal-minus').addEventListener('click', () => adjustVariant('normal', -1));
         document.getElementById('btn-normal-plus').addEventListener('click', () => adjustVariant('normal', 1));
@@ -844,7 +877,9 @@
         document.getElementById('btn-reverse-plus').addEventListener('click', () => adjustVariant('reverse', 1));
         document.getElementById('btn-holo-minus').addEventListener('click', () => adjustVariant('holo', -1));
         document.getElementById('btn-holo-plus').addEventListener('click', () => adjustVariant('holo', 1));
-        document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+        
+        document.getElementById('btn-save-modal').addEventListener('click', saveAndCloseModal);
+        document.getElementById('btn-modal-x-close').addEventListener('click', attemptCloseWithX);
 
         init();
     </script>
